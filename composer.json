@@ -1,0 +1,40 @@
+{
+    "name": "carbon/navigation",
+    "type": "neos-carbon",
+    "description": "Navigation and frontend redirect helper for Neos CMS",
+    "license": "MIT",
+    "keywords": ["flow", "neos", "fusion", "helper", "redirect", "navigation", "carbon"],
+    "require": {
+        "neos/neos": "~3.3 || ~4.0",
+        "carbon/filecontent": "^1.1",
+        "carbon/hyphen": "^1.0",
+        "carbon/frontend": "@dev"
+    },
+    "authors": [{
+        "name": "Jon Uhlmann",
+        "email": "me@jonnitto.ch",
+        "homepage": "https://jonnitto.ch",
+        "role": "Developer"
+    }],
+    "archive": {
+        "exclude": [
+            ".editorconfig",
+            ".gitattributes",
+            ".github",
+            ".gitignore",
+            "CODE_OF_CONDUCT.md"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "Carbon\\Navigation\\": "Classes"
+        }
+    },
+    "extra": {
+        "marketplace-account": "me@jonnitto.ch",
+        "installer-name": "Carbon.Navigation",
+        "neos": {
+            "package-key": "Carbon.Navigation"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+{namespace fusion=Neos\Fusion\ViewHelpers}
+<ul{attributes -> f:format.raw()}>
+<f:for each="{items}" as="item">
+    <f:if condition="{item.state} != current && {!renderCurrent}">
+        <li{fusion:render(path: '{item.state}.attributes', context: {item: item}) -> f:format.raw()}>
+            <f:if condition="{item.node}">
+                <f:then>
+                    <neos:link.node node="{item.node}" class="{itemClass}">
+                        <fusion:render path="itemLabel" context="{item:item}" />
+                    </neos:link.node>
+                </f:then>
+                <f:else>
+                    <span class="{itemClass}">
+                        <fusion:render path="itemLabel" context="{item:item}" />
+                    </span>
+                </f:else>
+            </f:if>
+        </li>
+    </f:if>
+</f:for>
+</ul>

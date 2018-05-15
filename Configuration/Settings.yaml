@@ -1,0 +1,10 @@
+Neos:
+  Neos:
+    fusion:
+      autoInclude:
+        Carbon.Navigation: true
+
+Carbon:
+  Navigation:
+    redirect:
+      statusCode: 301

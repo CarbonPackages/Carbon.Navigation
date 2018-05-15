@@ -1,0 +1,14 @@
+prototype(Carbon.Navigation:RedirectToFirstChildPage) < prototype(Neos.Fusion:Component) {
+    childNode = ${q(documentNode).children('[instanceof Neos.Neos:Document]').get(0)}
+    parentNode = ${q(documentNode).parent().get(0)}
+    statusCode = ${Configuration.setting('Carbon.Navigation.redirect.statusCode')}
+
+    renderer = Neos.Fusion:Http.Message {
+        httpResponseHead {
+            statusCode = ${props.statusCode}
+            headers.Location = Neos.Neos:NodeUri {
+                node = ${props.childNode ? props.childNode : props.parentNode}
+            }
+        }
+    }
+}

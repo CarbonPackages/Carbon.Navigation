@@ -1,0 +1,11 @@
+root {
+    frontendRedirectToParentPage {
+        condition = ${node.context.live && q(node).is('[instanceof Carbon.Navigation:RedirectToParentPage]')}
+        renderer = Carbon.Navigation:RedirectToParentPage
+    }
+
+    frontendRedirectToFirstChildPage {
+        condition = ${node.context.live && q(node).is('[instanceof Carbon.Navigation:RedirectToFirstChildPage]')}
+        renderer = Carbon.Navigation:RedirectToFirstChildPage
+    }
+}

@@ -1,0 +1,22 @@
+{namespace fusion=Neos\Fusion\ViewHelpers}
+
+<f:section name="Menu">
+    <f:for each="{items}" as="item" iteration="iteration">
+        <f:if condition="{iteration.isFirst}">
+            <ul{fusion:render(path:'attributes', context: {node: item.node, iteration:iteration}) -> f:format.raw()}>
+                {fusion:render(path:'prepend', context: {node: item.node, iteration:iteration}) -> f:format.raw()}
+        </f:if>
+        {fusion:render(path:'beforeItem', context: {node: item.node, iteration:iteration}) -> f:format.raw()}
+        <li{fusion:render(path:'{item.state}.attributes', context: {item: item, iteration:iteration}) -> f:format.raw()}>
+            {fusion:render(path:'link', context: {node: item.node, iteration:iteration}) -> f:format.raw()}
+            <f:if condition="{item.subItems}">
+                <f:render section="Menu" arguments="{items: item.subItems}" />
+            </f:if>
+        </li>
+        {fusion:render(path:'afterItem', context: {node: item.node, iteration:iteration}) -> f:format.raw()}
+        <f:if condition="{iteration.isLast}">
+                {fusion:render(path:'append', context: {node: item.node, iteration:iteration}) -> f:format.raw()}
+            </ul>
+        </f:if>
+    </f:for>
+</f:section>

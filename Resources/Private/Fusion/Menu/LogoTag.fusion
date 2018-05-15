@@ -1,0 +1,17 @@
+prototype(Carbon.Navigation:LogoTag) < prototype(Neos.Fusion:Component) {
+    tagName = 'a'
+    class = 'logo-element'
+    href = Neos.Neos:NodeUri {
+        node = ${site}
+    }
+    content = ${node.context.currentSite.name}
+
+    renderer = Neos.Fusion:Tag {
+        tagName = ${props.tagName}
+        attributes {
+            class = ${props.class}
+            href = ${props.href}
+        }
+        content = ${props.content}
+    }
+}

@@ -1,0 +1,38 @@
+prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
+    @context {
+        entryLevel = ${this.entryLevel}
+        instanceFilter = ${this.instanceFilter}
+        wrapAnchorWithSpan = ${this.wrapAnchorWithSpan}
+    }
+
+    templatePath = 'resource://Carbon.Navigation/Private/Fusion/Menu/Menu.html'
+    sectionName = 'Menu'
+    filter = 'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'
+    instanceFilter = ${String.replace('[instanceof ' + Array.join(String.split(this.filter, ','), '][instanceof ') + ']', 'instanceof !', '!instanceof ')}
+    wrapAnchorWithSpan = true
+    entryLevel = ${this.startingPoint ? 0 : 1}
+    maximumLevels = 2
+
+    attributes {
+        class = Neos.Fusion:RawArray {
+            namespace = 'nav-list'
+            entryLevel = ${'-entry' + entryLevel}
+            level = Carbon.Navigation:MenuLevel
+        }
+    }
+
+    prepend = ''
+    append = ''
+    beforeItem = ''
+    afterItem = ''
+
+    site = ${site}
+
+    normal.attributes.class = Carbon.Navigation:MenuElementClass
+    active.attributes.class = Carbon.Navigation:MenuElementClass
+    current.attributes.class = Carbon.Navigation:MenuElementClass
+
+    link = Carbon.Navigation:MenuLink
+
+    @process.shy = Carbon.Hyphen:Shy.AlwaysReplace
+}

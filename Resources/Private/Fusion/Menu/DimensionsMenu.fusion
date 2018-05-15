@@ -1,0 +1,22 @@
+prototype(Carbon.Navigation:DimensionsMenu) < prototype(Neos.Neos:DimensionsMenu) {
+    templatePath = 'resource://Carbon.Navigation/Private/Fusion/Menu/DimensionsMenu.html'
+
+    attributes.class = 'dimensions-menu'
+    renderCurrent = true
+    itemLabel = ${item.label}
+    itemClass = 'dimensions-entry'
+
+    active.attributes.class = Carbon.Navigation:DimensionsMenu.Class
+    current.attributes.class = Carbon.Navigation:DimensionsMenu.Class
+    normal.attributes.class = Carbon.Navigation:DimensionsMenu.Class
+    absent.attributes.class = Carbon.Navigation:DimensionsMenu.Class
+}
+
+prototype(Carbon.Navigation:DimensionsMenu.Class) < prototype(Neos.Fusion:RawArray) {
+    dimension = Neos.Fusion:Collection {
+        collection = ${item.targetDimensions}
+        itemRenderer = ${'dimension-' + itemKey + ' ' + itemKey + '-' + item.value}
+    }
+    state = ${'-' + item.state}
+    absent = ${item.state == 'absent' ? '-normal' : false}
+}

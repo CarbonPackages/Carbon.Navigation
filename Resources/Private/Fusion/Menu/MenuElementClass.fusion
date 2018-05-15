@@ -1,0 +1,11 @@
+prototype(Carbon.Navigation:MenuElementClass) < prototype(Neos.Fusion:RawArray) {
+    namespace = 'nav-element'
+    state = ${'-' + item.state}
+    current = ${item.state == 'current' ? '-active' : false}
+    level = Carbon.Navigation:MenuLevel {
+        node = ${item.node}
+    }
+    hasSubpages = ${q(item.node).children(instanceFilter).is() ? '-hassub' : '-nosub'}
+    isFirst = ${iteration && iteration.isFirst ? '-first' : false }
+    isLast = ${iteration && iteration.isLast ? '-last' : false }
+}

@@ -1,0 +1,37 @@
+'Carbon.Navigation:NotInMenu':
+  abstract: true
+  properties:
+    _hiddenInIndex:
+      ui:
+        inspector:
+          group: hidden
+
+'Carbon.Navigation:HideSeo':
+  abstract: true
+  superTypes:
+    'Neos.Seo:TitleTagMixin': false
+    'Neos.Seo:SeoMetaTagsMixin': false
+    'Neos.Seo:TwitterCardMixin': false
+    'Neos.Seo:CanonicalLinkMixin': false
+    'Neos.Seo:OpenGraphMixin': false
+    'Neos.Seo:XmlSitemapMixin': false
+
+'Carbon.Navigation:RedirectToParentPage':
+  abstract: true
+  search:
+    fulltext:
+      enable: false
+  superTypes:
+    'Carbon.Navigation:NotInMenu': true
+    'Carbon.Navigation:HideSeo': true
+    'Jonnitto.Sitemap:RemoveFromSitemap': true
+
+'Carbon.Navigation:RedirectToFirstChildPage':
+  abstract: true
+  search:
+    fulltext:
+      enable: false
+  superTypes:
+    'Carbon.Navigation:NotInMenu': true
+    'Carbon.Navigation:HideSeo': true
+    'Jonnitto.Sitemap:RemoveFromSitemap': true
