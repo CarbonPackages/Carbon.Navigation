@@ -15,23 +15,3 @@
     'Neos.Seo:CanonicalLinkMixin': false
     'Neos.Seo:OpenGraphMixin': false
     'Neos.Seo:XmlSitemapMixin': false
-
-'Carbon.Navigation:RedirectToParentPage':
-  abstract: true
-  search:
-    fulltext:
-      enable: false
-  superTypes:
-    'Carbon.Navigation:NotInMenu': true
-    'Carbon.Navigation:HideSeo': true
-    'Jonnitto.Sitemap:RemoveFromSitemap': true
-
-'Carbon.Navigation:RedirectToFirstChildPage':
-  abstract: true
-  search:
-    fulltext:
-      enable: false
-  superTypes:
-    'Carbon.Navigation:NotInMenu': true
-    'Carbon.Navigation:HideSeo': true
-    'Jonnitto.Sitemap:RemoveFromSitemap': true
