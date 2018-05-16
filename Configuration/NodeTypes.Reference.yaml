@@ -1,0 +1,19 @@
+'Carbon.Navigation:References':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        navigationreference:
+          label: i18n
+          position: 100
+          icon: icon-bars
+  properties:
+    navigationreferences:
+      type: references
+      ui:
+        label: i18n
+        inspector:
+          group: navigationreference
+          position: 100
+          editorOptions:
+            nodeTypes: ['Neos.Neos:Document']
