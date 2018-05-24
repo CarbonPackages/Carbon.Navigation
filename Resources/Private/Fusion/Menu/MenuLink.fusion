@@ -32,6 +32,11 @@ prototype(Carbon.Navigation:MenuLink) < prototype(Neos.Fusion:Component) {
             }
             href = ${props.href}
         }
-        content = ${(props.wrapAnchorWithSpan ? '<span>' : '') + props.content + (props.wrapAnchorWithSpan ? '</span>' : '')}
+        content = ${props.content}
+        content.@process.wrap = Neos.Fusion:Tag {
+            @if.wrap = ${props.wrapAnchorWithSpan}
+            tagName = 'span'
+            content = ${value}
+        }
     }
 }

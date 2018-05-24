@@ -9,7 +9,7 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
     sectionName = 'Menu'
     filter = 'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'
     instanceFilter = ${String.replace('[instanceof ' + Array.join(String.split(this.filter, ','), '][instanceof ') + ']', 'instanceof !', '!instanceof ')}
-    wrapAnchorWithSpan = true
+    wrapAnchorWithSpan = false
     entryLevel = ${this.startingPoint ? 0 : 1}
     maximumLevels = 2
 
