@@ -2,11 +2,19 @@ prototype(Carbon.Navigation.References) < prototype(Neos.Fusion:Component) {
     collection = ${q(node).closest('[instanceof Carbon.Navigation:References][navigationreferences]').property('navigationreferences')}
     class = 'navigation-references'
 
-    renderer = afx`
-        <ul class={props.class} @if.render={props.collection && Array.length(props.collection)}>
-            <Neos.Fusion:Collection itemName='node' @children='itemRenderer'>
-                <li><Carbon.Link:Link node={node} /></li>
-            </Neos.Fusion:Collection>
-        </ul>
-    `
+    renderer = Neos.Fusion:Tag {
+        @if.render = ${props.collection && Array.length(props.collection)}
+        tagName = 'ul'
+        attributes.class = ${props.class}
+        content = Neos.Fusion:Collection {
+            itemName = 'node'
+            itemRenderer = Carbon.Link:Link {
+                node = ${node}
+                @process.wrap = Neos.Fusion:Tag {
+                    tagName = 'li'
+                    content = ${value}
+                }
+            }
+        }
+    }
 }
