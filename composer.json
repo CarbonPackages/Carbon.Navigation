@@ -6,7 +6,6 @@
     "keywords": ["flow", "neos", "fusion", "helper", "redirect", "navigation", "carbon"],
     "require": {
         "neos/neos": "~3.3 || ~4.0",
-        "carbon/hyphen": "^1.0",
         "carbon/link": "^1.0",
         "carbon/frontend": "^1.0"
     },
