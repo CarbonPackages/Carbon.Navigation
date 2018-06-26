@@ -7,25 +7,27 @@
 
 # Carbon.Navigation Package for Neos CMS
 
+This package provides various helps for implementing navigations in your Neos site.
+
 ## NodeTypes
 
 All Node Types are marked as abstract. So you have to include them as supertypes if you want to use them. You can read more about Node Type definition [here](https://neos.readthedocs.io/en/stable/CreatingASite/NodeTypes/NodeTypeDefinition.html).
 
 ### `Carbon.Navigation:NotInMenu`
 
-Hide the property `_hiddenInIndex`. Defined in [NodeTypes.Mixin.yaml](Configuration/NodeTypes.Mixin.yaml)
+Hide the property `_hiddenInIndex`. Defined in [NodeTypes.NotInMenu.yaml](Configuration/NodeTypes.NotInMenu.yaml)
 
 ### `Carbon.Navigation:HideSeo`
 
-Turn off all type of SEO properties. Defined in [NodeTypes.Mixin.yaml](Configuration/NodeTypes.Mixin.yaml)
+Turn off all type of SEO properties. Defined in [NodeTypes.HideSeo.yaml](Configuration/NodeTypes.HideSeo.yaml)
 
-### `Carbon.Navigation:Redirect.ToParentPage`
+### `Carbon.Navigation:RedirectToParentPage`
 
-(Only in the live context) Redirect the user to the parent page. Defined in [NodeTypes.Redirect.yaml](Configuration/NodeTypes.Redirect.yaml) and [ToParentPage.fusion](Resources/Private/Fusion/Redirect/ToParentPage.fusion)
+(Only in the live context) Redirect the user to the parent page. Defined in [NodeTypes.RedirectToParentPage.yaml](Configuration/NodeTypes.RedirectToParentPage.yaml) and [ToParentPage.fusion](Resources/Private/Fusion/Redirect/ToParentPage.fusion)
 
-### `Carbon.Navigation:Redirect.ToFirstChildPage`
+### `Carbon.Navigation:RedirectToFirstChildPage`
 
-(Only in the live context) Redirect the user to the first child page, if available. If not, the user gets redirected to the parent page. Defined in [NodeTypes.Redirect.yaml](Configuration/NodeTypes.Redirect.yaml) and [ToFirstChildPage.fusion](Resources/Private/Fusion/Redirect/ToFirstChildPage.fusion)
+(Only in the live context) Redirect the user to the first child page, if available. If not, the user gets redirected to the parent page. Defined in [NodeTypes.RedirectToFirstChildPage.yaml](Configuration/NodeTypes.RedirectToFirstChildPage.yaml) and [ToFirstChildPage.fusion](Resources/Private/Fusion/Redirect/ToFirstChildPage.fusion)
 
 ### `Carbon.Navigation:References`
 
