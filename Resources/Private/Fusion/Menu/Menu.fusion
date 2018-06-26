@@ -34,5 +34,11 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
 
     link = Carbon.Navigation:MenuLink
 
-    @process.shy = Carbon.Hyphen:Shy.AlwaysReplace
+    # if Carbon.Hypen is available, always replace shy
+    @process.shy = Neos.Fusion:Value {
+        @if.carbonHypenExists = Neos.Fusion:CanRender {
+            type = 'Carbon.Hyphen:Shy.AlwaysReplace'
+        }
+        value = Carbon.Hyphen:Shy.AlwaysReplace
+    }
 }
