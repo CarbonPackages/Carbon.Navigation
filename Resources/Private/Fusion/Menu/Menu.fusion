@@ -34,17 +34,11 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
 
     link = Carbon.Navigation:MenuLink
 
-    # if Carbon.Hypen is used, always replace shy
-    @process.shy = Neos.Fusion:Case {
-        carbonHypenExists {
-            condition = Neos.Fusion:CanRender {
-                type = 'Carbon.Hyphen:Shy.AlwaysReplace'
-            }
+    # if Carbon.Hypen is available, always replace shy
+    @process.shy = Neos.Fusion:Value {
+        @if.carbonHypenExists = Neos.Fusion:CanRender {
             type = 'Carbon.Hyphen:Shy.AlwaysReplace'
         }
-        default {
-            condition = true
-            renderer = ${value}
-        }
+        value = Carbon.Hyphen:Shy.AlwaysReplace
     }
 }
