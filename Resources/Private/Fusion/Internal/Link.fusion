@@ -1,60 +1,19 @@
-prototype(Carbon.Navigation:Link) < prototype(Neos.Fusion:Tag) {
+prototype(Carbon.Navigation:Link) < prototype(Carbon.Link:Link) {
     // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
     // Properties can change without releasing a new major version.
     // You have to be aware of this if you use this prototype directly
 
     node = ${item.node}
-    @context.node = ${this.node}
-
-    tagName = ${this.node ? 'a' : 'span'}
-    attributes.href = Neos.Neos:NodeUri {
-        node = ${node}
-        @if.hasNode = ${node}
-    }
+    backendLink = true
+    renderDefaultTagIfNoLink = true
     content = ''
     content.@process.wrap = Neos.Fusion:Tag {
         @if.wrap = ${wrapAnchor}
         tagName = ${Type.isString(wrapAnchor) ? wrapAnchor : 'span'}
         content = ${value}
     }
-}
 
-prototype(Carbon.Navigation:Menu.Link) < prototype(Carbon.Navigation:Link) {
-    // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
-    // Properties can change without releasing a new major version.
-    // You have to be aware of this if you use this prototype directly
-
-    content = ${q(this.node).property('title')}
-    attributes {
-        @context.targetSchema = Neos.Fusion:Case {
-            isShortcutWithTargetNode {
-                condition = ${q(node).is('[instanceof Neos.Neos:Shortcut]') && q(node).property('targetMode') == 'selectedTarget'}
-                renderer = Neos.Fusion:Value {
-                    scheme = ${Neos.Link.getScheme(q(node).property('target'))}
-                    value = ${this.scheme ? this.scheme : 'external'}
-                }
-            }
-            default {
-                condition = true
-                renderer = 'node'
-            }
-        }
-        rel = ${targetSchema == 'node' ? false : 'noopener'}
-        target = ${targetSchema == 'node' || String.startsWith(href, 'mailto:') ? false : '_blank'}
-        class = Carbon.Navigation:Menu.Class {
-            name = 'link'
-            targetSchema = ${this.pre + '-' + targetSchema}
-        }
-    }
-}
-
-prototype(Carbon.Navigation:Dimensions.Link) < prototype(Carbon.Navigation:Link) {
-    // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
-    // Properties can change without releasing a new major version.
-    // You have to be aware of this if you use this prototype directly
-
-    content = ${item.label}
-    attributes.class = Carbon.Navigation:Dimensions.Class {
-        name = 'link'
+    prototype(Carbon.Link:Class) {
+        prepend = ${useBEM ? namespace + '__link-' : ''}
     }
 }

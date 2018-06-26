@@ -38,7 +38,12 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
         elementTag = ${this.elementTag}
     }
 
-    link = Carbon.Navigation:Menu.Link
+    link = Carbon.Navigation:Link {
+        content = ${q(this.node).property('title')}
+        additionalClass = Carbon.Navigation:Menu.Class {
+            name = 'link'
+        }
+    }
 
     attributes.class = Carbon.Navigation:Menu.Class {
         name = 'list'
