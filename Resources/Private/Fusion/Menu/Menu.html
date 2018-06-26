@@ -1,22 +1,54 @@
 {namespace fusion=Neos\Fusion\ViewHelpers}
 
 <f:section name="Menu">
-    <f:for each="{items}" as="item" iteration="iteration">
-        <f:if condition="{iteration.isFirst}">
-            <ul{fusion:render(path:'attributes', context: {node: item.node, iteration:iteration}) -> f:format.raw()}>
-                {fusion:render(path:'prepend', context: {node: item.node, iteration:iteration}) -> f:format.raw()}
-        </f:if>
-        {fusion:render(path:'beforeItem', context: {node: item.node, iteration:iteration}) -> f:format.raw()}
-        <li{fusion:render(path:'{item.state}.attributes', context: {item: item, iteration:iteration}) -> f:format.raw()}>
-            {fusion:render(path:'link', context: {node: item.node, iteration:iteration}) -> f:format.raw()}
-            <f:if condition="{item.subItems}">
-                <f:render section="Menu" arguments="{items: item.subItems}" />
+    <f:spaceless>
+        <f:for each="{items}" as="item" iteration="iteration">
+            <f:render section="First" arguments="{_all}" />
+            <f:render section="ListElement" arguments="{_all}" contentAs="content">
+                <f:if condition="{item.subItems}">
+                    <f:render section="Menu" arguments="{items: item.subItems, listTag: listTag, elementTag: elementTag}" />
+                </f:if>
+            </f:render>
+            <f:render section="Last" arguments="{_all}" />
+        </f:for>
+    </f:spaceless>
+</f:section>
+
+
+<f:section name="Dimension">
+    <f:spaceless>
+        <f:for each="{items}" as="item" iteration="iteration">
+            <f:render section="First" arguments="{_all}" />
+            <f:if condition="{fusion:render(path:'renderItem', context: {item: item, iteration:iteration, renderCurrent: renderCurrent})}">
+                <f:render section="ListElement" arguments="{_all}" />
             </f:if>
-        </li>
-        {fusion:render(path:'afterItem', context: {node: item.node, iteration:iteration}) -> f:format.raw()}
-        <f:if condition="{iteration.isLast}">
-                {fusion:render(path:'append', context: {node: item.node, iteration:iteration}) -> f:format.raw()}
-            </ul>
-        </f:if>
-    </f:for>
+            <f:render section="Last" arguments="{_all}" />
+        </f:for>
+    </f:spaceless>
+</f:section>
+
+
+<f:section name="ListElement">
+    {fusion:render(path:'beforeItem', context: {item: item, iteration:iteration}) -> f:format.raw()}
+    <f:if condition="{elementTag}"><{elementTag}{fusion:render(path:'{item.state}.attributes', context: {item: item, iteration:iteration}) -> f:format.raw()}></f:if>
+        {fusion:render(path:'link', context: {item: item, iteration:iteration}) -> f:format.raw()}
+        {content -> f:format.raw()}
+    <f:if condition="{elementTag}"></{elementTag}></f:if>
+    {fusion:render(path:'afterItem', context: {item: item, iteration:iteration}) -> f:format.raw()}
+</f:section>
+
+
+<f:section name="First">
+    <f:if condition="{iteration.isFirst}">
+        <f:if condition="{listTag}"><{listTag}{fusion:render(path:'attributes', context: {item: item, iteration:iteration}) -> f:format.raw()}></f:if>
+        {fusion:render(path:'beforeFirst', context: {item: item, iteration:iteration}) -> f:format.raw()}
+    </f:if>
+</f:section>
+
+
+<f:section name="Last">
+    <f:if condition="{iteration.isLast}">
+        {fusion:render(path:'afterLast', context: {item: item, iteration:iteration}) -> f:format.raw()}
+        <f:if condition="{listTag}"></{listTag}></f:if>
+    </f:if>
 </f:section>

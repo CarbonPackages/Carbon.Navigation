@@ -33,9 +33,9 @@ Insert a property called `navigationreferences`. This is very useful if you want
 
 ## Menu Fusion prototypes
 
-### `Carbon.Navigation:DimensionsMenu`
+### `Carbon.Navigation:Dimensions`
 
-Extendend variant from [Neos.Neos:DimensionsMenu](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-dimensionsmenu). If you set `renderCurrent` to `false`, the current dimension didn't get rendered. You got also some useful css classes (Defined in `Carbon.Navigation:DimensionsMenu.Class`) to create the needed styling. Defined in [DimensionsMenu.fusion](Resources/Private/Fusion/Menu/DimensionsMenu.fusion)
+Extendend variant from [Neos.Neos:DimensionsMenu](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-dimensionsmenu). If you set `renderCurrent` to `false`, the current dimension didn't get rendered. You got also some useful css classes (Defined in `Carbon.Navigation:Dimensions.Class`) to create the needed styling. Defined in [Dimensions.fusion](Resources/Private/Fusion/Menu/Dimensions.fusion)
 
 ### `Carbon.Navigation:LogoTag`
 
@@ -43,19 +43,7 @@ Create a Tag with a link to the homepage. Defined in [LogoTag.fusion](Resources/
 
 ### `Carbon.Navigation:Menu`
 
-Extend variant from [Neos.Neos:Menu](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-menu). If you set `wrapAnchorWithSpan` to `true`, the text inside the anchor gets wrapped with a `span` tag. The main difference to the default menu is that if you have no item to render, no markup at all gets rendered. You can inject custom code with the properties `prepend`, `append`, `beforeItem` and `afterItem`. Defined in [Menu.fusion](Resources/Private/Fusion/Menu/Menu.fusion)
-
-### `Carbon.Navigation:MenuElementClass`
-
-Defined in [MenuElementClass.fusion](Resources/Private/Fusion/Menu/MenuElementClass.fusion)
-
-### `Carbon.Navigation:MenuLevel`
-
-Defined in [MenuLevel.fusion](Resources/Private/Fusion/Menu/MenuLevel.fusion)
-
-### `Carbon.Navigation:MenuLink`
-
-Defined in [MenuLink.fusion](Resources/Private/Fusion/Menu/MenuLink.fusion)
+Extend variant from [Neos.Neos:Menu](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-menu). If you set `wrapAnchor` to `true`, the text inside the anchor gets wrapped with a `span` tag, if the value is set to an string, this string will be used as tag name. The main difference to the default menu is that if you have no item to render, no markup at all gets rendered. You can also inject custom code with the properties `beforeFirst`, `afterLast`, `beforeItem` and `afterItem`. If you want to use css class names in [BEM](http://getbem.com/) styles, you have to set `useBEM` to true. Defined in [Menu.fusion](Resources/Private/Fusion/Menu/Menu.fusion)
 
 ## License
 

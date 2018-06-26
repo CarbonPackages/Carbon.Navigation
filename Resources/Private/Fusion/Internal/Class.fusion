@@ -1,0 +1,44 @@
+prototype(Carbon.Navigation.Class) < prototype(Neos.Fusion:RawArray) {
+    // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
+    // Properties can change without releasing a new major version.
+    // You have to be aware of this if you use this prototype directly
+
+    name = null
+    pre = ${useBEM ? namespace + '__' + this.name + '-' : ''}
+    @ignoreProperties = ${['name', 'pre']}
+    @context {
+        pre = ${this.pre}
+        name = ${this.name}
+    }
+
+    namespace = ${namespace + (useBEM ? '__' : '-') + this.name}
+    state = ${this.name != 'list' && item.state ? this.pre + '-' + item.state : false}
+}
+
+
+prototype(Carbon.Navigation:Menu.Class) < prototype(Carbon.Navigation.Class) {
+    // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
+    // Properties can change without releasing a new major version.
+    // You have to be aware of this if you use this prototype directly
+
+    entryLevel = ${this.pre + '-entry' + entryLevel}
+    menuLevel = ${item.menuLevel ? this.pre + '-level' + item.menuLevel : false}
+    current = ${item.state == 'current' ? this.pre + '-active' : false}
+    subpages = ${this.name != 'list' && item ? this.pre + (item.subItems ? '-hassub' : '-nosub') : false}
+    isFirst = ${this.name != 'list' && iteration && iteration.isFirst ?  this.pre + '-first' : false }
+    isLast = ${this.name != 'list' && iteration && iteration.isLast ?  this.pre + '-last' : false }
+}
+
+
+prototype(Carbon.Navigation:Dimensions.Class) < prototype(Carbon.Navigation.Class) {
+    // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
+    // Properties can change without releasing a new major version.
+    // You have to be aware of this if you use this prototype directly
+
+    absent = ${item.state == 'absent' ? '-normal' : false}
+    dimension = Neos.Fusion:Collection {
+        @if.render = ${name != 'list'}
+        collection = ${item.targetDimensions}
+        itemRenderer = ${pre + '-' + itemKey + ' ' + pre + '-' + itemKey + '-' + item.value}
+    }
+}

@@ -1,38 +1,59 @@
 prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
-    @context {
-        entryLevel = ${this.entryLevel}
-        instanceFilter = ${this.instanceFilter}
-        wrapAnchorWithSpan = ${this.wrapAnchorWithSpan}
-    }
+    // The properties of an item is available under following variables
+    // - item.menuLevel
+    // - item.subItems
+    // - item.state
 
-    templatePath = 'resource://Carbon.Navigation/Private/Fusion/Menu/Menu.html'
-    sectionName = 'Menu'
-    filter = 'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'
-    instanceFilter = ${String.replace('[instanceof ' + Array.join(String.split(this.filter, ','), '][instanceof ') + ']', 'instanceof !', '!instanceof ')}
-    wrapAnchorWithSpan = false
+    useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
+    namespace = ${Configuration.setting('Carbon.Navigation.Menu.namespace')}
+    wrapAnchor = ${Configuration.setting('Carbon.Navigation.Menu.wrapAnchor')}
+    listTag = ${Configuration.setting('Carbon.Navigation.Menu.listTag')}
+    elementTag = ${Configuration.setting('Carbon.Navigation.Menu.elementTag')}
+
     entryLevel = ${this.startingPoint ? 0 : 1}
-    maximumLevels = 2
+    maximumLevels = ${Configuration.setting('Carbon.Navigation.Menu.maximumLevels')}
+    filter = ${Configuration.setting('Carbon.Navigation.Menu.filter')}
+    showHome = true
+    //${Configuration.setting('Carbon.Navigation.Menu.showHome')}
 
-    attributes {
-        class = Neos.Fusion:RawArray {
-            namespace = 'nav-list'
-            entryLevel = ${'-entry' + entryLevel}
-            level = Carbon.Navigation:MenuLevel
-        }
+    beforeFirst = Carbon.Navigation:References {
+        @if.render = ${showHome && item.menuLevel == entryLevel}
+        itemCollection = ${[site]}
+        useBEM = ${useBEM}
+        namespace = ${namespace}
+        wrapAnchor = ${wrapAnchor}
+        listTag = false
+        elementTag = ${elementTag}
+    }
+    afterLast = false
+    beforeItem = false
+    afterItem = false
+
+    @context {
+        namespace = ${this.namespace}
+        useBEM = ${this.useBEM}
+        wrapAnchor = ${this.wrapAnchor}
+        entryLevel = ${this.entryLevel}
+        showHome = ${this.showHome}
+        elementTag = ${this.elementTag}
     }
 
-    prepend = ''
-    append = ''
-    beforeItem = ''
-    afterItem = ''
+    link = Carbon.Navigation:Menu.Link
 
-    site = ${site}
-
-    normal.attributes.class = Carbon.Navigation:MenuElementClass
-    active.attributes.class = Carbon.Navigation:MenuElementClass
-    current.attributes.class = Carbon.Navigation:MenuElementClass
-
-    link = Carbon.Navigation:MenuLink
+    attributes.class = Carbon.Navigation:Menu.Class {
+        name = 'list'
+    }
+    normal.attributes.class = Carbon.Navigation:Menu.Class {
+        name = 'element'
+    }
+    active.attributes.class = Carbon.Navigation:Menu.Class {
+        name = 'element'
+    }
+    current.attributes.class = Carbon.Navigation:Menu.Class {
+        name = 'element'
+    }
 
     @process.shy = Carbon.Hyphen:Shy.AlwaysReplace
+    templatePath = 'resource://Carbon.Navigation/Private/Fusion/Menu/Menu.html'
+    sectionName = 'Menu'
 }

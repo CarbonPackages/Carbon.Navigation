@@ -11,5 +11,25 @@ Neos:
 
 Carbon:
   Navigation:
+    useBEM: false
+    Dimensions:
+      namespace: dimensions
+      renderCurrent: true
+      wrapAnchor: false
+      listTag: ul
+      elementTag: li
+    Menu:
+      namespace: nav
+      wrapAnchor: false
+      listTag: ul
+      elementTag: li
+      maximumLevels: 2
+      filter: 'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'
+      showHome: false
+    References:
+      namespace: references
+      wrapAnchor: false
+      listTag: ul
+      elementTag: li
     redirect:
       statusCode: 301
