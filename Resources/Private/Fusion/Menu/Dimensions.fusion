@@ -25,20 +25,16 @@ prototype(Carbon.Navigation:Dimensions) < prototype(Neos.Neos:DimensionsMenu) {
         }
     }
 
-    attributes.class = Carbon.Navigation:Dimensions.Class {
-        name = 'list'
+    list.attributes = Neos.Fusion:Attributes {
+        class = Carbon.Navigation:Dimensions.Class {
+            name = 'list'
+        }
     }
-    active.attributes.class = Carbon.Navigation:Dimensions.Class {
-        name = 'element'
-    }
-    current.attributes.class = Carbon.Navigation:Dimensions.Class {
-        name = 'element'
-    }
-    normal.attributes.class = Carbon.Navigation:Dimensions.Class {
-        name = 'element'
-    }
-    absent.attributes.class = Carbon.Navigation:Dimensions.Class {
-        name = 'element'
+
+    element.attributes = Neos.Fusion:Attributes {
+        class = Carbon.Navigation:Dimensions.Class {
+            name = 'element'
+        }
     }
 
     templatePath = 'resource://Carbon.Navigation/Private/Fusion/Menu/Menu.html'
