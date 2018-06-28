@@ -3,18 +3,16 @@ prototype(Carbon.Navigation:References) < prototype(Carbon.Navigation:Menu) {
 
     useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
     namespace = ${Configuration.setting('Carbon.Navigation.References.namespace')}
-    wrapAnchor = ${Configuration.setting('Carbon.Navigation.References.wrapAnchor')}
+    wrapText = ${Configuration.setting('Carbon.Navigation.References.wrapText')}
     listTag = ${Configuration.setting('Carbon.Navigation.References.listTag')}
     elementTag = ${Configuration.setting('Carbon.Navigation.References.elementTag')}
+    maximumLevels = ${Configuration.setting('Carbon.Navigation.References.maximumLevels')}
+    renderHiddenInIndex = ${Configuration.setting('Carbon.Navigation.References.renderHiddenInIndex')}
 
-    // Reset from Menu
     beforeFirst = false
     afterLast = false
     beforeItem = false
     afterItem = false
-
-    maximumLevels = 1
-    renderHiddenInIndex = true
 
     @if.render = ${this.itemCollection && Type.isArray(this.itemCollection) && Array.length(this.itemCollection)}
 }
