@@ -13,12 +13,6 @@ Carbon:
   Navigation:
     templatePath: 'resource://Carbon.Navigation/Private/Templates/Menu.html'
     useBEM: false
-    Dimensions:
-      namespace: dimensions
-      renderCurrent: true
-      wrapAnchor: false
-      listTag: ul
-      elementTag: li
     Menu:
       namespace: nav
       wrapText: false
@@ -27,10 +21,19 @@ Carbon:
       maximumLevels: 2
       filter: 'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'
       showHome: false
+      renderHiddenInIndex: false
     References:
       namespace: references
       wrapText: false
       listTag: ul
       elementTag: li
-    redirect:
+      maximumLevels: 1
+      renderHiddenInIndex: true
+    Dimensions:
+      namespace: dimensions
+      wrapText: false
+      listTag: ul
+      elementTag: li
+      renderCurrent: true
+    Redirect:
       statusCode: 301
