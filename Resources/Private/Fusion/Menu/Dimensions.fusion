@@ -19,7 +19,6 @@ prototype(Carbon.Navigation:Dimensions) < prototype(Neos.Neos:DimensionsMenu) {
 
     renderItem = ${renderCurrent ? true : item.state != 'current'}
     link = Carbon.Navigation:Link {
-        content = ${item.label}
         additionalClass = Carbon.Navigation:Dimensions.Class {
             name = 'link'
         }
