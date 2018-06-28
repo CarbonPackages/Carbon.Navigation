@@ -8,8 +8,8 @@ prototype(Carbon.Navigation:Link) < prototype(Carbon.Link:Link) {
     renderDefaultTagIfNoLink = true
     content = ${item.label}
     content.@process.wrap = Neos.Fusion:Tag {
-        @if.wrap = ${wrapAnchor}
-        tagName = ${Type.isString(wrapAnchor) ? wrapAnchor : 'span'}
+        @if.wrap = ${wrapText}
+        tagName = ${Type.isString(wrapText) ? wrapText : 'span'}
         content = ${value}
     }
 

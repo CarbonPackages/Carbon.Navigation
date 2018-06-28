@@ -21,7 +21,7 @@ Carbon:
       elementTag: li
     Menu:
       namespace: nav
-      wrapAnchor: false
+      wrapText: false
       listTag: ul
       elementTag: li
       maximumLevels: 2
@@ -29,7 +29,7 @@ Carbon:
       showHome: false
     References:
       namespace: references
-      wrapAnchor: false
+      wrapText: false
       listTag: ul
       elementTag: li
     redirect:

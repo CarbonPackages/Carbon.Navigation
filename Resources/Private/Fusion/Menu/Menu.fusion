@@ -6,7 +6,7 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
 
     useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
     namespace = ${Configuration.setting('Carbon.Navigation.Menu.namespace')}
-    wrapAnchor = ${Configuration.setting('Carbon.Navigation.Menu.wrapAnchor')}
+    wrapText = ${Configuration.setting('Carbon.Navigation.Menu.wrapText')}
     listTag = ${Configuration.setting('Carbon.Navigation.Menu.listTag')}
     elementTag = ${Configuration.setting('Carbon.Navigation.Menu.elementTag')}
 
@@ -49,7 +49,7 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
     @context {
         namespace = ${this.namespace}
         useBEM = ${this.useBEM}
-        wrapAnchor = ${this.wrapAnchor}
+        wrapText = ${this.wrapText}
         showHome = ${this.showHome}
         elementTag = ${this.elementTag}
     }
