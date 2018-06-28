@@ -55,11 +55,11 @@ Render a menu with items for nodes. Extends [Neos.Neos:Menu](https://neos.readth
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `maximumLevels`       | (integer) Restrict the maximum depth of items in the menu (relative to `entryLevel`) . Defaults to `2`                                              |
 | `filter`              | (string) Filter items by node type, defaults to `'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'`                                                 |
-| `showHome`            | (boolean) If set to `true`, the homepage gets rendererd in the menu. Done with `beforeFirst` Defaults to `false`                                    |
+| `showHome`            | (boolean) If set to `true`, the homepage link gets rendererd in the menu. Done with `beforeFirst`. Defaults to `false`                              |
 | `entryLevel`          | (integer) Start the menu at the given depth. If no `startingPoint` is set, it is defaults to `1`, otherwise `0`                                     |
 | `startingPoint`       | (Node) The parent node of the first menu level                                                                                                      |
 | `lastLevel`           | (integer) Restrict the menu depth by node depth (relative to site node)                                                                             |
-| `renderHiddenInIndex` | (boolean) Whether nodes with hiddenInIndex should be rendered, defaults to `false`                                                                  |
+| `renderHiddenInIndex` | (boolean) Whether nodes with `hiddenInIndex` should be rendered, defaults to `false`                                                                |
 | `itemCollection`      | (array) Explicitly set the Node items for the menu (alternative to `startingPoints` and levels)                                                     |
 | `beforeFirst`         | (boolean \|\| string) If set, the string gets injected **before the first item**. The variables `item`, `iteration` and `entryLevel` are available. |
 | `afterLast`           | (boolean \|\| string) If set, the string gets injected **after the last item**. The variables `item`, `iteration` and `entryLevel` are available.   |
@@ -81,7 +81,7 @@ Defined in [Menu.fusion](Resources/Private/Fusion/Menu/Menu.fusion)
 
 ### `Carbon.Navigation:References`
 
-The same as `Carbon.Navigation:Menu` with the difference that `itemCollection` is set to the closest instance of `Carbon.Navigation:References` who has `navigationreferences` set. `maximumLevels` defaults to `1` and `renderHiddenInIndex` defaults to `true`.
+Provides a list of links, based on nodes set in the inspector. Based on `Carbon.Navigation:Menu`. `itemCollection` is set to the closest instance of `Carbon.Navigation:References` who has the property `navigationreferences` set. `maximumLevels` defaults to `1` and `renderHiddenInIndex` defaults to `true`.
 
 Defined in [References.fusion](Resources/Private/Fusion/Menu/References.fusion)
 
