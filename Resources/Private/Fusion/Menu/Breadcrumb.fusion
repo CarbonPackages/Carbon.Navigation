@@ -1,0 +1,21 @@
+prototype(Carbon.Navigation:Breadcrumb) < prototype(Carbon.Navigation:Menu) {
+    sortDesc = ${Configuration.setting('Carbon.Navigation.Breadcrumb.sortDesc')}
+    itemCollection = ${q(node).add(q(node).parents('[instanceof Neos.Neos:Document]')).get()}
+    itemCollection.@process.sort = ${this.sortDesc ? Array.reverse(value) : value}
+
+    useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
+    namespace = ${Configuration.setting('Carbon.Navigation.Breadcrumb.namespace')}
+    wrapText = ${Configuration.setting('Carbon.Navigation.Breadcrumb.wrapText')}
+    listTag = ${Configuration.setting('Carbon.Navigation.Breadcrumb.listTag')}
+    elementTag = ${Configuration.setting('Carbon.Navigation.Breadcrumb.elementTag')}
+    renderHiddenInIndex = ${Configuration.setting('Carbon.Navigation.Breadcrumb.renderHiddenInIndex')}
+
+    beforeFirst = false
+    afterLast = false
+    beforeItem = false
+    afterItem = false
+
+    maximumLevels = 1
+
+    @if.render = ${this.itemCollection && Type.isArray(this.itemCollection) && Array.length(this.itemCollection)}
+}

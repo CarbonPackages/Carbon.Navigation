@@ -29,6 +29,13 @@ Carbon:
       elementTag: li
       maximumLevels: 1
       renderHiddenInIndex: true
+    Breadcrumb:
+      namespace: breadcrumb
+      wrapText: false
+      listTag: ol
+      elementTag: li
+      renderHiddenInIndex: false
+      sortDesc: true 
     Dimensions:
       namespace: dimensions
       wrapText: false
