@@ -74,7 +74,7 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
 
     # if Carbon.Hypen is available, always replace shy
     @process.shy = Neos.Fusion:Value {
-        @if.carbonHypenExists = Neos.Fusion:CanRender {
+        @if.carbonHypenExists = Ttree.Fusion:CanRender {
             type = 'Carbon.Hyphen:Shy.AlwaysReplace'
         }
         value = Carbon.Hyphen:Shy.AlwaysReplace
