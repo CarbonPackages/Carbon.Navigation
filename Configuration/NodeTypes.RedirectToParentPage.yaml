@@ -1,0 +1,9 @@
+'Carbon.Navigation:RedirectToParentPage':
+  abstract: true
+  search:
+    fulltext:
+      enable: false
+  superTypes:
+    'Carbon.Navigation:NotInMenu': true
+    'Carbon.Navigation:HideSeo': true
+    'Jonnitto.Sitemap:RemoveFromSitemap': true

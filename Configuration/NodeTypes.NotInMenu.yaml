@@ -1,0 +1,7 @@
+'Carbon.Navigation:NotInMenu':
+  abstract: true
+  properties:
+    _hiddenInIndex:
+      ui:
+        inspector:
+          group: hidden
