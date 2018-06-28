@@ -11,6 +11,7 @@ Neos:
 
 Carbon:
   Navigation:
+    templatePath: 'resource://Carbon.Navigation/Private/Templates/Menu.html'
     useBEM: false
     Dimensions:
       namespace: dimensions

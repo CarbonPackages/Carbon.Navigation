@@ -36,6 +36,6 @@ prototype(Carbon.Navigation:Dimensions) < prototype(Neos.Neos:DimensionsMenu) {
         }
     }
 
-    templatePath = 'resource://Carbon.Navigation/Private/Fusion/Menu/Menu.html'
+    templatePath = ${Configuration.setting('Carbon.Navigation.templatePath')}
     sectionName = 'Dimension'
 }

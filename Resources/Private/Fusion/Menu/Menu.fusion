@@ -79,6 +79,6 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
         }
         value = Carbon.Hyphen:Shy.AlwaysReplace
     }
-    templatePath = 'resource://Carbon.Navigation/Private/Fusion/Menu/Menu.html'
+    templatePath = ${Configuration.setting('Carbon.Navigation.templatePath')}
     sectionName = 'Menu'
 }
