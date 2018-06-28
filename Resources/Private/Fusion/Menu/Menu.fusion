@@ -10,18 +10,18 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
     listTag = ${Configuration.setting('Carbon.Navigation.Menu.listTag')}
     elementTag = ${Configuration.setting('Carbon.Navigation.Menu.elementTag')}
 
-    entryLevel = ${this.startingPoint ? 0 : 1}
     maximumLevels = ${Configuration.setting('Carbon.Navigation.Menu.maximumLevels')}
     filter = ${Configuration.setting('Carbon.Navigation.Menu.filter')}
     showHome = ${Configuration.setting('Carbon.Navigation.Menu.showHome')}
     renderHiddenInIndex = ${Configuration.setting('Carbon.Navigation.Menu.renderHiddenInIndex')}
+    entryLevel = ${this.startingPoint ? 0 : 1}
 
     prototype(Carbon.Navigation:Class) {
         isFirst = ${showHome ? false : iteration && iteration.isFirst}
     }
 
     beforeFirst = Carbon.Navigation:Link {
-        @if.render = ${showHome && item.menuLevel == entryLevel}
+        @if.weAreOnTheMainLevel = ${showHome && item.menuLevel == entryLevel}
         node = ${site}
 
         prototype(Carbon.Navigation:Class) {
