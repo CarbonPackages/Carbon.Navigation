@@ -6,7 +6,6 @@
     "keywords": ["flow", "neos", "fusion", "helper", "redirect", "navigation", "carbon"],
     "require": {
         "neos/neos": "~3.0 || ~4.0",
-        "ttree/fusion-canrender": "*",
         "carbon/link": "^1.0"
     },
     "suggest": {

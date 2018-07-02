@@ -74,10 +74,8 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
     }
 
     # if Carbon.Hypen is available, always replace shy
-    @process.shy = Neos.Fusion:Value {
-        @if.carbonHypenExists = Ttree.Fusion:CanRender {
-            type = 'Carbon.Hyphen:Shy.AlwaysReplace'
-        }
+     @process.shy = Neos.Fusion:Value {
+        @if.carbonHypenIsInstalled = ${Configuration.setting('Neos.Neos.fusion.autoInclude')['Carbon.Hyphen']}
         value = Carbon.Hyphen:Shy.AlwaysReplace
     }
     templatePath = ${Configuration.setting('Carbon.Navigation.templatePath')}
