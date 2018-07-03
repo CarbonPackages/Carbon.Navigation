@@ -1,8 +1,0 @@
-prototype(Carbon.Navigation:MenuLevel) < prototype(Neos.Fusion:Value) {
-    node = ${node}
-    prepend = '-level'
-    entryLevel = ${entryLevel ? entryLevel - 1 : 0}
-    count = ${q(this.node).parents().count() - this.entryLevel}
-    append = ''
-    value = ${this.prepend + this.count + this.append}
-}

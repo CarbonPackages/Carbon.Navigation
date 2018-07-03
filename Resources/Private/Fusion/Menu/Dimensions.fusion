@@ -1,0 +1,41 @@
+prototype(Carbon.Navigation:Dimensions) < prototype(Neos.Neos:DimensionsMenu) {
+    useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
+    namespace = ${Configuration.setting('Carbon.Navigation.Dimensions.namespace')}
+    wrapText = ${Configuration.setting('Carbon.Navigation.Dimensions.wrapText')}
+    renderCurrent = ${Configuration.setting('Carbon.Navigation.Dimensions.renderCurrent')}
+    listTag = ${Configuration.setting('Carbon.Navigation.Dimensions.listTag')}
+    elementTag = ${Configuration.setting('Carbon.Navigation.Dimensions.elementTag')}
+
+    beforeFirst = false
+    afterLast = false
+    beforeItem = false
+    afterItem = false
+
+    @context {
+        namespace = ${this.namespace}
+        useBEM = ${this.useBEM}
+        wrapText = ${this.wrapText}
+    }
+
+    renderItem = ${renderCurrent ? true : item.state != 'current'}
+    link = Carbon.Navigation:Link {
+        additionalClass = Carbon.Navigation:Dimensions.Class {
+            name = 'link'
+        }
+    }
+
+    list.attributes = Neos.Fusion:Attributes {
+        class = Carbon.Navigation:Dimensions.Class {
+            name = 'list'
+        }
+    }
+
+    element.attributes = Neos.Fusion:Attributes {
+        class = Carbon.Navigation:Dimensions.Class {
+            name = 'element'
+        }
+    }
+
+    templatePath = ${Configuration.setting('Carbon.Navigation.templatePath')}
+    sectionName = 'Dimension'
+}

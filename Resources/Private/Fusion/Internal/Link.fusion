@@ -1,0 +1,19 @@
+prototype(Carbon.Navigation:Link) < prototype(Carbon.Link:Link) {
+    // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
+    // Properties can change without releasing a new major version.
+    // You have to be aware of this if you use this prototype directly
+
+    node = ${item.node}
+    backendLink = true
+    renderDefaultTagIfNoLink = true
+    content = ${item.label}
+    content.@process.wrap = Neos.Fusion:Tag {
+        @if.wrap = ${wrapText}
+        tagName = ${Type.isString(wrapText) ? wrapText : 'span'}
+        content = ${value}
+    }
+
+    prototype(Carbon.Link:Class) {
+        prepend = ${useBEM ? namespace + '__link-' : ''}
+    }
+}

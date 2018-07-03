@@ -11,5 +11,36 @@ Neos:
 
 Carbon:
   Navigation:
-    redirect:
+    templatePath: 'resource://Carbon.Navigation/Private/Templates/Menu.html'
+    useBEM: false
+    Menu:
+      namespace: nav
+      wrapText: false
+      listTag: ul
+      elementTag: li
+      maximumLevels: 2
+      filter: 'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'
+      showHome: false
+      renderHiddenInIndex: false
+    References:
+      namespace: references
+      wrapText: false
+      listTag: ul
+      elementTag: li
+      maximumLevels: 1
+      renderHiddenInIndex: true
+    Breadcrumb:
+      namespace: breadcrumb
+      wrapText: false
+      listTag: ol
+      elementTag: li
+      renderHiddenInIndex: false
+      sortDesc: true 
+    Dimensions:
+      namespace: dimensions
+      wrapText: false
+      listTag: ul
+      elementTag: li
+      renderCurrent: true
+    Redirect:
       statusCode: 301

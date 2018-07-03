@@ -1,38 +1,83 @@
 prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
-    @context {
-        entryLevel = ${this.entryLevel}
-        instanceFilter = ${this.instanceFilter}
-        wrapAnchorWithSpan = ${this.wrapAnchorWithSpan}
+    // The properties of an item is available under following variables
+    // - item.menuLevel
+    // - item.subItems
+    // - item.state
+
+    useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
+    namespace = ${Configuration.setting('Carbon.Navigation.Menu.namespace')}
+    wrapText = ${Configuration.setting('Carbon.Navigation.Menu.wrapText')}
+    listTag = ${Configuration.setting('Carbon.Navigation.Menu.listTag')}
+    elementTag = ${Configuration.setting('Carbon.Navigation.Menu.elementTag')}
+
+    maximumLevels = ${Configuration.setting('Carbon.Navigation.Menu.maximumLevels')}
+    filter = ${Configuration.setting('Carbon.Navigation.Menu.filter')}
+    showHome = ${Configuration.setting('Carbon.Navigation.Menu.showHome')}
+    renderHiddenInIndex = ${Configuration.setting('Carbon.Navigation.Menu.renderHiddenInIndex')}
+    entryLevel = ${this.startingPoint ? 0 : 1}
+
+    prototype(Carbon.Navigation:Class) {
+        isFirst = ${showHome ? false : iteration && iteration.isFirst}
     }
 
-    templatePath = 'resource://Carbon.Navigation/Private/Fusion/Menu/Menu.html'
-    sectionName = 'Menu'
-    filter = 'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'
-    instanceFilter = ${String.replace('[instanceof ' + Array.join(String.split(this.filter, ','), '][instanceof ') + ']', 'instanceof !', '!instanceof ')}
-    wrapAnchorWithSpan = false
-    entryLevel = ${this.startingPoint ? 0 : 1}
-    maximumLevels = 2
+    beforeFirst = Carbon.Navigation:Link {
+        @if.weAreOnTheMainLevel = ${showHome && item.menuLevel == entryLevel}
+        node = ${site}
 
-    attributes {
-        class = Neos.Fusion:RawArray {
-            namespace = 'nav-list'
-            entryLevel = ${'-entry' + entryLevel}
-            level = Carbon.Navigation:MenuLevel
+        prototype(Carbon.Navigation:Class) {
+            isFirst = true
+            isLast = false
+            state = ${documentNode == site ? 'current' : 'normal'}
+            hasSubpages = false
+        }
+
+        additionalClass = Carbon.Navigation:Class {
+            name = 'link'
+        }
+        @process.wrap = Neos.Fusion:Tag {
+            @if.hasTag = ${elementTag}
+            tagName = ${elementTag}
+            attributes.class = Carbon.Navigation:Class {
+                name = 'element'
+            }
+            content = ${value}
+        }
+    }
+    afterLast = false
+    beforeItem = false
+    afterItem = false
+
+    @context {
+        namespace = ${this.namespace}
+        useBEM = ${this.useBEM}
+        wrapText = ${this.wrapText}
+        showHome = ${this.showHome}
+        elementTag = ${this.elementTag}
+    }
+
+    link = Carbon.Navigation:Link {
+        additionalClass = Carbon.Navigation:Class {
+            name = 'link'
         }
     }
 
-    prepend = ''
-    append = ''
-    beforeItem = ''
-    afterItem = ''
+    list.attributes = Neos.Fusion:Attributes {
+        class = Carbon.Navigation:Class {
+            name = 'list'
+        }
+    }
 
-    site = ${site}
+    element.attributes = Neos.Fusion:Attributes {
+        class = Carbon.Navigation:Class {
+            name = 'element'
+        }
+    }
 
-    normal.attributes.class = Carbon.Navigation:MenuElementClass
-    active.attributes.class = Carbon.Navigation:MenuElementClass
-    current.attributes.class = Carbon.Navigation:MenuElementClass
-
-    link = Carbon.Navigation:MenuLink
-
-    @process.shy = Carbon.Hyphen:Shy.AlwaysReplace
+    # if Carbon.Hypen is available, always replace shy
+     @process.shy = Neos.Fusion:Value {
+        @if.carbonHypenIsInstalled = ${Configuration.setting('Neos.Neos.fusion.autoInclude')['Carbon.Hyphen']}
+        value = Carbon.Hyphen:Shy.AlwaysReplace
+    }
+    templatePath = ${Configuration.setting('Carbon.Navigation.templatePath')}
+    sectionName = 'Menu'
 }

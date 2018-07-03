@@ -1,0 +1,48 @@
+prototype(Carbon.Navigation:Class) < prototype(Neos.Fusion:RawArray) {
+    // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
+    // Properties can change without releasing a new major version.
+    // You have to be aware of this if you use this prototype directly
+
+    name = null
+    pre = ${useBEM ? namespace + '__' + this.name + '-' : ''}
+    state = ${item.state}
+    entryLevel = ${entryLevel}
+    menuLevel = ${item.menuLevel}
+    isFirst = ${iteration && iteration.isFirst}
+    isLast = ${iteration && iteration.isLast}
+    hasSubpages = ${item ? item.subItems ? true : false : null}
+
+    @ignoreProperties = ${['name', 'pre', 'state', 'entryLevel', 'menuLevel', 'isFirst', 'isLast', 'hasSubpages']}
+    @context {
+        pre = ${this.pre}
+        name = ${this.name}
+    }
+
+    namespaceClass = ${namespace + (useBEM ? '__' : '-') + this.name}
+    stateClass = ${this.name != 'list' && this.state ? this.pre + '-' + this.state : false}
+    entryLevelClass = ${this.entryLevel ? this.pre + '-entry' + this.entryLevel : false}
+    menuLevelClass = ${this.menuLevel ? this.pre + '-level' + this.menuLevel : false}
+    currentClass = ${this.state == 'current' ? this.pre + '-active' : false}
+
+    subpagesClass = ${this.name != 'list' && this.hasSubpages != null ? this.pre + (this.hasSubpages ? '-hassub' : '-nosub') : false}
+    isFirstClass = ${this.name != 'list' && this.isFirst ?  this.pre + '-first' : false }
+    isLastClass = ${this.name != 'list' && this.isLast ?  this.pre + '-last' : false }
+}
+
+prototype(Carbon.Navigation:Dimensions.Class) < prototype(Carbon.Navigation:Class) {
+    // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
+    // Properties can change without releasing a new major version.
+    // You have to be aware of this if you use this prototype directly
+
+    entryLevel = false
+    menuLevel = false
+    isFirst = false
+    isLast = false
+
+    absentClass = ${this.state == 'absent' ? '-normal' : false}
+    dimensionClass = Neos.Fusion:Collection {
+        @if.render = ${name != 'list'}
+        collection = ${item.targetDimensions}
+        itemRenderer = ${pre + '-' + itemKey + ' ' + pre + '-' + itemKey + '-' + item.value}
+    }
+}
