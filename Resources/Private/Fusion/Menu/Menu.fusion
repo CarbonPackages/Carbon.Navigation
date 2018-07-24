@@ -1,10 +1,9 @@
-prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
+prototype(Carbon.Navigation:Menu) < prototype(Carbon.Navigation:Mixin) {
     // The properties of an item is available under following variables
     // - item.menuLevel
     // - item.subItems
     // - item.state
 
-    useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
     namespace = ${Configuration.setting('Carbon.Navigation.Menu.namespace')}
     wrapText = ${Configuration.setting('Carbon.Navigation.Menu.wrapText')}
     listTag = ${Configuration.setting('Carbon.Navigation.Menu.listTag')}
@@ -16,6 +15,8 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
     renderHiddenInIndex = ${Configuration.setting('Carbon.Navigation.Menu.renderHiddenInIndex')}
     entryLevel = ${this.startingPoint ? 0 : 1}
 
+    renderClass = ${Configuration.setting('Carbon.Navigation.Menu.renderClass')}
+
     prototype(Carbon.Navigation:Class) {
         isFirst = ${showHome ? false : iteration && iteration.isFirst}
     }
@@ -23,6 +24,7 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
     beforeFirst = Carbon.Navigation:Link {
         @if.weAreOnTheMainLevel = ${showHome && item.menuLevel == entryLevel}
         node = ${site}
+        content = ${q(site).property('title')}
 
         prototype(Carbon.Navigation:Class) {
             isFirst = true
@@ -43,41 +45,4 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Neos:Menu) {
             content = ${value}
         }
     }
-    afterLast = false
-    beforeItem = false
-    afterItem = false
-
-    @context {
-        namespace = ${this.namespace}
-        useBEM = ${this.useBEM}
-        wrapText = ${this.wrapText}
-        showHome = ${this.showHome}
-        elementTag = ${this.elementTag}
-    }
-
-    link = Carbon.Navigation:Link {
-        additionalClass = Carbon.Navigation:Class {
-            name = 'link'
-        }
-    }
-
-    list.attributes = Neos.Fusion:Attributes {
-        class = Carbon.Navigation:Class {
-            name = 'list'
-        }
-    }
-
-    element.attributes = Neos.Fusion:Attributes {
-        class = Carbon.Navigation:Class {
-            name = 'element'
-        }
-    }
-
-    # if Carbon.Hypen is available, always replace shy
-     @process.shy = Neos.Fusion:Value {
-        @if.carbonHypenIsInstalled = ${Configuration.setting('Neos.Neos.fusion.autoInclude')['Carbon.Hyphen']}
-        value = Carbon.Hyphen:Shy.AlwaysReplace
-    }
-    templatePath = ${Configuration.setting('Carbon.Navigation.templatePath')}
-    sectionName = 'Menu'
 }

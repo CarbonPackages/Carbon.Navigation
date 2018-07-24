@@ -11,38 +11,34 @@ prototype(Carbon.Navigation:Class) < prototype(Neos.Fusion:RawArray) {
     isFirst = ${iteration && iteration.isFirst}
     isLast = ${iteration && iteration.isLast}
     hasSubpages = ${item ? item.subItems ? true : false : null}
+    render = ${renderClass[this.name]}
 
-    @ignoreProperties = ${['name', 'pre', 'state', 'entryLevel', 'menuLevel', 'isFirst', 'isLast', 'hasSubpages']}
+    @ignoreProperties = ${['name', 'pre', 'state', 'entryLevel', 'menuLevel', 'isFirst', 'isLast', 'hasSubpages', 'render']}
     @context {
         pre = ${this.pre}
         name = ${this.name}
+        renderDimension = ${this.render.dimension}
+        renderState = ${this.render.state[this.state]}
     }
 
     namespaceClass = ${namespace + (useBEM ? '__' : '-') + this.name}
-    stateClass = ${this.name != 'list' && this.state ? this.pre + '-' + this.state : false}
-    entryLevelClass = ${this.entryLevel ? this.pre + '-entry' + this.entryLevel : false}
-    menuLevelClass = ${this.menuLevel ? this.pre + '-level' + this.menuLevel : false}
-    currentClass = ${this.state == 'current' ? this.pre + '-active' : false}
-
-    subpagesClass = ${this.name != 'list' && this.hasSubpages != null ? this.pre + (this.hasSubpages ? '-hassub' : '-nosub') : false}
-    isFirstClass = ${this.name != 'list' && this.isFirst ?  this.pre + '-first' : false }
-    isLastClass = ${this.name != 'list' && this.isLast ?  this.pre + '-last' : false }
-}
-
-prototype(Carbon.Navigation:Dimensions.Class) < prototype(Carbon.Navigation:Class) {
-    // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
-    // Properties can change without releasing a new major version.
-    // You have to be aware of this if you use this prototype directly
-
-    entryLevel = false
-    menuLevel = false
-    isFirst = false
-    isLast = false
-
-    absentClass = ${this.state == 'absent' ? '-normal' : false}
-    dimensionClass = Neos.Fusion:Collection {
-        @if.render = ${name != 'list'}
+    stateClass = Neos.Fusion:RawCollection {
+        collection = ${Type.isArray(renderState) ? renderState : Type.isString(renderState) ? [renderState] : []}
+        itemRenderer = ${pre + '-' + item}
+        @process.join = ${Array.join(value, ' ')}
+    }
+    entryLevelClass = ${this.render.entryLevel && this.entryLevel ? this.pre + '-entry' + this.entryLevel : false}
+    menuLevelClass = ${this.render.menuLevel && this.menuLevel ? this.pre + '-level' + this.menuLevel : false}
+    subpagesClass = ${this.render.subpages && this.hasSubpages != null ? this.pre + (this.hasSubpages ? '-hassub' : '-nosub') : false}
+    isFirstClass = ${this.render.isFirst && this.isFirst ?  this.pre + '-first' : false }
+    isLastClass = ${this.render.isLast && this.isLast ?  this.pre + '-last' : false }
+    dimension = Neos.Fusion:Collection {
+        @if.renderDimensions = ${renderDimension}
         collection = ${item.targetDimensions}
-        itemRenderer = ${pre + '-' + itemKey + ' ' + pre + '-' + itemKey + '-' + item.value}
+        itemRenderer = Neos.Fusion:RawArray {
+            key = ${renderDimension.key ? pre + '-' + itemKey : false}
+            value = ${renderDimension.value ? pre + '-' + itemKey + '-' + item.value : false}
+            @process.join = ${Array.join(value, ' ')}
+        }
     }
 }

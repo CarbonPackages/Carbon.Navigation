@@ -3,9 +3,18 @@
     "type": "neos-carbon",
     "description": "Navigation and frontend redirect helper for Neos CMS",
     "license": "MIT",
-    "keywords": ["flow", "neos", "fusion", "helper", "redirect", "navigation", "carbon"],
+    "keywords": [
+        "flow",
+        "neos",
+        "fusion",
+        "helper",
+        "redirect",
+        "navigation",
+        "carbon"
+    ],
     "require": {
         "neos/neos": "~3.0 || ~4.0",
+        "carbon/eel": "^1.1",
         "carbon/link": "^1.0"
     },
     "suggest": {

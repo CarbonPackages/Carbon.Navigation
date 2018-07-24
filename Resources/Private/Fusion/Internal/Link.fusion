@@ -15,5 +15,6 @@ prototype(Carbon.Navigation:Link) < prototype(Carbon.Link:Link) {
 
     prototype(Carbon.Link:Class) {
         prepend = ${useBEM ? namespace + '__link-' : ''}
+        linkType.@if.renderTypeClass = ${renderClass.link.type}
     }
 }
