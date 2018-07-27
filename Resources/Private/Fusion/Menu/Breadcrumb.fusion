@@ -1,21 +1,58 @@
-prototype(Carbon.Navigation:Breadcrumb) < prototype(Carbon.Navigation:Menu) {
+prototype(Carbon.Navigation:Breadcrumb) < prototype(Carbon.Navigation:Mixin) {
     sortDesc = ${Configuration.setting('Carbon.Navigation.Breadcrumb.sortDesc')}
-    itemCollection = ${q(node).add(q(node).parents('[instanceof Neos.Neos:Document]')).get()}
-    itemCollection.@process.sort = ${this.sortDesc ? Array.reverse(value) : value}
+    showHome = ${Configuration.setting('Carbon.Navigation.Breadcrumb.showHome')}
 
-    useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
+    itemCollection = ${q(node).add(q(node).parents('[instanceof Neos.Neos:Document]')).get()}
+    itemCollection.@process {
+        showHome = ${this.showHome ? value : Array.pop(value)}
+        sort = ${this.sortDesc ? Array.reverse(value) : value}
+    }
+
     namespace = ${Configuration.setting('Carbon.Navigation.Breadcrumb.namespace')}
     wrapText = ${Configuration.setting('Carbon.Navigation.Breadcrumb.wrapText')}
     listTag = ${Configuration.setting('Carbon.Navigation.Breadcrumb.listTag')}
     elementTag = ${Configuration.setting('Carbon.Navigation.Breadcrumb.elementTag')}
     renderHiddenInIndex = ${Configuration.setting('Carbon.Navigation.Breadcrumb.renderHiddenInIndex')}
-
-    beforeFirst = false
-    afterLast = false
-    beforeItem = false
-    afterItem = false
-
+    renderClass = ${Configuration.setting('Carbon.Navigation.Breadcrumb.renderClass')}
+    renderSiblings = ${Configuration.setting('Carbon.Navigation.Breadcrumb.renderSiblings')}
+    renderPrevNext = ${Configuration.setting('Carbon.Navigation.Breadcrumb.renderPrevNext')}
     maximumLevels = 1
+
+    @context {
+        renderSiblings = ${this.renderSiblings}
+        renderPrevNext = ${this.renderPrevNext}
+        renderHiddenInIndex = ${this.renderHiddenInIndex}
+    }
+
+    appendItem = Carbon.Navigation:Mixin {
+        @if.renderSiblings = ${renderPrevNext || renderSiblings}
+        itemCollection = Neos.Fusion:Case {
+            @context.filter = ${Configuration.setting('Carbon.Navigation.Breadcrumb.filter')}
+            prevNext {
+                condition = ${renderPrevNext}
+                renderer = Neos.Fusion:RawArray {
+                    prev = ${q(item.node).prevAll(filter).get()}
+                    node = ${item.node}
+                    next = ${q(item.node).nextAll(filter).get()}
+                    @process.extractSubElements = ${Carbon.Array.extractSubElements(value)}
+                }
+            }
+            siblings {
+                condition = true
+                renderer = ${q(item.node).siblings(filter).get()}
+            }
+        }
+
+        useBEM = ${useBEM}
+        namespace = ${namespace}
+        wrapText = ${wrapText}
+        listTag = ${listTag == 'ol' ? 'ul': listTag}
+        elementTag = ${elementTag}
+        renderHiddenInIndex = ${renderHiddenInIndex}
+        renderClass = ${renderClass}
+        maximumLevels = 1
+    }
+    link.@if.renderNotPrevNext = ${!renderPrevNext}
 
     @if.render = ${this.itemCollection && Type.isArray(this.itemCollection) && Array.length(this.itemCollection)}
 }

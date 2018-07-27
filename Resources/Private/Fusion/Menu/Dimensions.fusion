@@ -5,33 +5,61 @@ prototype(Carbon.Navigation:Dimensions) < prototype(Neos.Neos:DimensionsMenu) {
     renderCurrent = ${Configuration.setting('Carbon.Navigation.Dimensions.renderCurrent')}
     listTag = ${Configuration.setting('Carbon.Navigation.Dimensions.listTag')}
     elementTag = ${Configuration.setting('Carbon.Navigation.Dimensions.elementTag')}
+    renderClass = ${Configuration.setting('Carbon.Navigation.Dimensions.renderClass')}
+    useUriSegmentAsLabel =  ${Configuration.setting('Carbon.Navigation.Dimensions.useUriSegmentAsLabel')}
+    mulitipleDimensionDivider = ${Configuration.setting('Carbon.Navigation.Dimensions.mulitipleDimensionDivider')}
 
     beforeFirst = false
     afterLast = false
     beforeItem = false
     afterItem = false
+    prependItem = false
+    appendItem = false
+
+    # name of the dimension to use (optional)
+    # dimension = 'language'
 
     @context {
         namespace = ${this.namespace}
         useBEM = ${this.useBEM}
         wrapText = ${this.wrapText}
+        renderClass = ${this.renderClass}
+        useUriSegmentAsLabel = ${this.useUriSegmentAsLabel}
+        dimension = ${this.dimension}
+        mulitipleDimensionDivider = ${this.mulitipleDimensionDivider}
     }
 
     renderItem = ${renderCurrent ? true : item.state != 'current'}
     link = Carbon.Navigation:Link {
-        additionalClass = Carbon.Navigation:Dimensions.Class {
+        content = Neos.Fusion:Case {
+            hasSingleDimension {
+                condition = ${dimension}
+                renderer = ${useUriSegmentAsLabel ? item.targetDimensions[dimension].value : item.label}
+            }
+            multipleDimension {
+                condition = true
+                renderer = Neos.Fusion:RawCollection {
+                    collection = ${item.targetDimensions}
+                    itemName = 'dimension'
+                    itemRenderer = ${useUriSegmentAsLabel ? dimension.value : dimension.label}
+                    @process.join = ${Array.join(value, mulitipleDimensionDivider)}
+                }
+            }
+        }
+
+        additionalClass = Carbon.Navigation:Class {
             name = 'link'
         }
     }
 
     list.attributes = Neos.Fusion:Attributes {
-        class = Carbon.Navigation:Dimensions.Class {
+        class = Carbon.Navigation:Class {
             name = 'list'
         }
     }
 
     element.attributes = Neos.Fusion:Attributes {
-        class = Carbon.Navigation:Dimensions.Class {
+        class = Carbon.Navigation:Class {
             name = 'element'
         }
     }

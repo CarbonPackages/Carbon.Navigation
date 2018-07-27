@@ -1,0 +1,46 @@
+prototype(Carbon.Navigation:Mixin) < prototype(Neos.Neos:Menu) {
+    useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
+
+    beforeFirst = false
+    afterLast = false
+    beforeItem = false
+    afterItem = false
+    prependItem = false
+    appendItem = false
+
+    @context {
+        namespace = ${this.namespace}
+        useBEM = ${this.useBEM}
+        wrapText = ${this.wrapText}
+        showHome = ${this.showHome}
+        listTag = ${this.listTag}
+        elementTag = ${this.elementTag}
+        renderClass = ${this.renderClass}
+    }
+
+    link = Carbon.Navigation:Link {
+        additionalClass = Carbon.Navigation:Class {
+            name = 'link'
+        }
+    }
+
+    list.attributes = Neos.Fusion:Attributes {
+        class = Carbon.Navigation:Class {
+            name = 'list'
+        }
+    }
+
+    element.attributes = Neos.Fusion:Attributes {
+        class = Carbon.Navigation:Class {
+            name = 'element'
+        }
+    }
+
+    # if Carbon.Hypen is available, always replace shy
+     @process.shy = Neos.Fusion:Value {
+        @if.carbonHypenIsInstalled = ${Configuration.setting('Neos.Neos.fusion.autoInclude')['Carbon.Hyphen']}
+        value = Carbon.Hyphen:Shy.AlwaysReplace
+    }
+    templatePath = ${Configuration.setting('Carbon.Navigation.templatePath')}
+    sectionName = 'Menu'
+}

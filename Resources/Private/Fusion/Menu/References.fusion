@@ -1,18 +1,14 @@
-prototype(Carbon.Navigation:References) < prototype(Carbon.Navigation:Menu) {
+prototype(Carbon.Navigation:References) < prototype(Carbon.Navigation:Mixin) {
     itemCollection = ${q(node).closest('[instanceof Carbon.Navigation:References][navigationreferences]').property('navigationreferences')}
 
-    useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
     namespace = ${Configuration.setting('Carbon.Navigation.References.namespace')}
     wrapText = ${Configuration.setting('Carbon.Navigation.References.wrapText')}
     listTag = ${Configuration.setting('Carbon.Navigation.References.listTag')}
     elementTag = ${Configuration.setting('Carbon.Navigation.References.elementTag')}
     maximumLevels = ${Configuration.setting('Carbon.Navigation.References.maximumLevels')}
     renderHiddenInIndex = ${Configuration.setting('Carbon.Navigation.References.renderHiddenInIndex')}
+    renderClass = ${Configuration.setting('Carbon.Navigation.References.renderClass')}
 
-    beforeFirst = false
-    afterLast = false
-    beforeItem = false
-    afterItem = false
 
     @if.render = ${this.itemCollection && Type.isArray(this.itemCollection) && Array.length(this.itemCollection)}
 }

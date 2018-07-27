@@ -31,8 +31,10 @@
 <f:section name="ListElement">
     {fusion:render(path:'beforeItem', context: {item: item, iteration: iteration, entryLevel: entryLevel}) -> f:format.raw()}
     <f:if condition="{elementTag}"><{elementTag}{fusion:render(path:'element.attributes', context: {item: item, iteration: iteration, entryLevel: entryLevel}) -> f:format.raw()}></f:if>
+        {fusion:render(path:'prependItem', context: {item: item, iteration: iteration, entryLevel: entryLevel}) -> f:format.raw()}
         {fusion:render(path:'link', context: {item: item, iteration: iteration, entryLevel: entryLevel}) -> f:format.raw()}
         {content -> f:format.raw()}
+        {fusion:render(path:'appendItem', context: {item: item, iteration: iteration, entryLevel: entryLevel}) -> f:format.raw()}
     <f:if condition="{elementTag}"></{elementTag}></f:if>
     {fusion:render(path:'afterItem', context: {item: item, iteration: iteration, entryLevel: entryLevel}) -> f:format.raw()}
 </f:section>

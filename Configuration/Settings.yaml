@@ -9,10 +9,57 @@ Neos:
       autoInclude:
         Carbon.Navigation: true
 
+# You don't need to set values to false,
+# just don't write the key
+# The possible keys for renderClass are:
+#
+# renderClass:
+#   list:
+#     entryLevel: true || false
+#     menuLevel: true || false
+#   element:
+#     entryLevel: true || false
+#     menuLevel: true || false
+#     state:
+#       normal: string || array || false
+#       active: string || array || false
+#       current: string || array || false
+#     subpages: true
+#     isFirst: true || false
+#     isLast: true || false
+#   link:
+#     entryLevel: true || false
+#     menuLevel: true || false
+#     state:
+#       normal: string || array || false
+#       active: string || array || false
+#       current: string || array || false
+#     subpages: true || false
+#     isFirst: true || false
+#     isLast: true || false
+#     type: true || false
+#
+# In the dimension menu you got these additional values:
+#
+# renderClass:
+#   element:
+#     dimension:
+#       key: true || false
+#       value: true || false
+#     state:
+#       absent: string || array || false
+#   link:
+#     dimension:
+#       key: true || false
+#       value: true || false
+#     state:
+#       absent: string || array || false
+
+
 Carbon:
   Navigation:
     templatePath: 'resource://Carbon.Navigation/Private/Templates/Menu.html'
-    useBEM: false
+    useBEM: true
     Menu:
       namespace: nav
       wrapText: false
@@ -22,6 +69,33 @@ Carbon:
       filter: 'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'
       showHome: false
       renderHiddenInIndex: false
+      renderClass:
+        list:
+          entryLevel: false
+          menuLevel: true
+        element:
+          entryLevel: false
+          menuLevel: true
+          subpages: true
+          isFirst: false
+          isLast: false
+          state:
+            normal: false
+            active: false
+            current: false
+        link:
+          entryLevel: false
+          menuLevel: true
+          subpages: false
+          isFirst: false
+          isLast: false
+          type: false
+          state:
+            normal: false
+            active: active
+            current:
+              - current
+              - active
     References:
       namespace: references
       wrapText: false
@@ -29,18 +103,45 @@ Carbon:
       elementTag: li
       maximumLevels: 1
       renderHiddenInIndex: true
+      renderClass:
+        link:
+          state:
+            current: current
+          type: true
     Breadcrumb:
       namespace: breadcrumb
       wrapText: false
       listTag: ol
       elementTag: li
       renderHiddenInIndex: false
-      sortDesc: true 
+      sortDesc: true
+      showHome: true
+      renderSiblings: false
+      renderPrevNext: false
+      filter: '[instanceof Neos.Neos:Document][!instanceof Carbon.Navigation:NotInMenu]'
+      renderClass:
+        link:
+          state:
+            active: active
+            current: current
     Dimensions:
       namespace: dimensions
       wrapText: false
       listTag: ul
       elementTag: li
       renderCurrent: true
+      useUriSegmentAsLabel: false
+      mulitipleDimensionDivider: ' - '
+      renderClass:
+        link:
+          dimension:
+            key: false
+            value: false
+          state:
+            normal: normal
+            current: current
+            absent:
+              - normal
+              - absent
     Redirect:
       statusCode: 301

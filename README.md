@@ -9,62 +9,69 @@
 
 This package provides various helps for implementing navigations in your Neos site.
 
-## NodeTypes
+# NodeTypes
 
 All Node Types are marked as abstract. So you have to include them as supertypes if you want to use them. You can read more about Node Type definition [here](https://neos.readthedocs.io/en/stable/CreatingASite/NodeTypes/NodeTypeDefinition.html).
 
-### `Carbon.Navigation:NotInMenu`
+## `Carbon.Navigation:NotInMenu`
 
 Hide the property `_hiddenInIndex`. Defined in [NodeTypes.NotInMenu.yaml](Configuration/NodeTypes.NotInMenu.yaml)
 
-### `Carbon.Navigation:HideSeo`
+## `Carbon.Navigation:HideSeo`
 
 Turn off all type of SEO properties. Defined in [NodeTypes.HideSeo.yaml](Configuration/NodeTypes.HideSeo.yaml)
 
-### `Carbon.Navigation:RedirectToParentPage`
+## `Carbon.Navigation:RedirectToParentPage`
 
 (Only in the live context) Redirect the user to the parent page. Defined in [NodeTypes.RedirectToParentPage.yaml](Configuration/NodeTypes.RedirectToParentPage.yaml) and [ToParentPage.fusion](Resources/Private/Fusion/Redirect/ToParentPage.fusion)
 
-### `Carbon.Navigation:RedirectToFirstChildPage`
+## `Carbon.Navigation:RedirectToFirstChildPage`
 
 (Only in the live context) Redirect the user to the first child page, if available. If not, the user gets redirected to the parent page. Defined in [NodeTypes.RedirectToFirstChildPage.yaml](Configuration/NodeTypes.RedirectToFirstChildPage.yaml) and [ToFirstChildPage.fusion](Resources/Private/Fusion/Redirect/ToFirstChildPage.fusion)
 
-### `Carbon.Navigation:References`
+## `Carbon.Navigation:References`
 
-Insert a property called `navigationreferences`. This is very useful if you want to create a navigation and want the editor to choose which documents should be included. However, you can also pass a custom collection to the Fusion prototype. Defined in [NodeTypes.References.yaml](Configuration/NodeTypes.References.yaml) and [References.fusion](Resources/Private/Fusion/References/References.fusion)
+Insert a property called `navigationreferences`. It is handy if you want to create a navigation and wants to let the editor to choose which documents should be included. However, you can also pass a custom collection to the Fusion prototype. Defined in [NodeTypes.References.yaml](Configuration/NodeTypes.References.yaml) and [References.fusion](Resources/Private/Fusion/References/References.fusion)
 
-## Menu Fusion prototypes
+# Menu Fusion prototypes
 
-You can edit the default behavior of each fusion prototype in your [Settings.yaml](Configuration/Settings.yaml). The configuration which can be set via Settings.yaml can also be set directly in the corresponding Fusion prototype. The Setting is here to provide an easy way to change some basics without writing Fusion code. The main difference to the default menus is that if you have no item to render, no markup at all gets rendered.
+You can edit the default behavior of each fusion prototype in your [Settings.yaml](Configuration/Settings.yaml). You can set the configuration via Settings.yaml or directly in the corresponding Fusion prototype. The Setting is here to provide an easy way to change some basics without writing Fusion code. If you don't have any entries, no markup at all gets rendered. No more empty `<ul>` anymore!
 
-### Properties for all menu prototypes
+## Properties for all menu prototypes
 
-| Property     | Description                                                                                                                                                       |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `useBEM`     | (boolean) If set to `true`, the CSS classes get written in [BEM-Style](http://getbem.com). Defaults to `false`                                                    |
-| `namespace`  | (string) You can easily change the namespace of the navigation. Useful if you have multiple navigations on your page. Defaults to the name of the prototype       |
-| `wrapText`   | (boolean \|\| string) If `true`, the text inside the `a` gets wrapped with a `span`. If it is a string, this string will become the tag name. Defaults to `false` |
-| `listTag`    | The tag of the full navigation gets wrapped. If it set to `false`, the navigation gets no surrounding tag. Defaults to `'ul'`                                     |
-| `elementTag` | The tag a navigation entry gets wrapped. If it set to `false`, the entry gets no surrounding tag. Defaults to `'li'`                                              |
+| Property      | Description                                                                                                                                                        |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `useBEM`      | (boolean) If set to `true`, the CSS classes get written in [BEM-Style](http://getbem.com). Defaults to `true`                                                      |
+| `namespace`   | (string) You can easily change the namespace of the navigation. Useful if you have multiple navigations on your page. Defaults to the name of the prototype        |
+| `wrapText`    | (boolean \|\| string) If `true`, the text inside the `a` gets wrapped with a `span`. If it is a string, this string will become the tag name. Defaults to `false`  |
+| `listTag`     | The tag of the full navigation gets wrapped. If it set to `false`, the navigation gets no surrounding tag. Defaults to `'ul'`                                      |
+| `elementTag`  | The tag a navigation entry gets wrapped. If it set to `false`, the entry gets no surrounding tag. Defaults to `'li'`                                               |
+| `beforeFirst` | (boolean \|\| string) If set, the string gets injected **before the first item**. The variables `item`, `iteration` and `entryLevel` are available.                |
+| `afterLast`   | (boolean \|\| string) If set, the string gets injected **after the last item**. The variables `item`, `iteration` and `entryLevel` are available.                  |
+| `beforeItem`  | (boolean \|\| string) If set, the string gets injected **before every item**. The variables `item`, `iteration` and `entryLevel` are available.                    |
+| `afterItem`   | (boolean \|\| string) If set, the string gets injected **after every item**. The variables `item`, `iteration` and `entryLevel` are available.                     |
+| `prependItem` | (boolean \|\| string) If set, the string gets injected **before every item inside the element**. The variables `item`, `iteration` and `entryLevel` are available. |
+| `appendItem`  | (boolean \|\| string) If set, the string gets injected **after every item inside the element**. The variables `item`, `iteration` and `entryLevel` are available.  |
+| `renderClass` | (array) The array which defines the css classes for the menu. Read more about this [here](#therenderclass)                                                         |
 
-### `Carbon.Navigation:Menu`
+### The renderClass
 
-Render a menu with items for nodes. Extends [Neos.Neos:Menu](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-menu). Besides the [default properties](#propertiesforallmenuprototypes) following properties are available:
+The `renderClass` entry in the setting for each menu type defines the CSS classes for this particular menu. It has three subkeys: `list`, `element` and `link`. Everyone of this key as further entries. If the keys are set to `false`, this type of class gets not rendered.
 
-| Property              | Description                                                                                                                                         |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `maximumLevels`       | (integer) Restrict the maximum depth of items in the menu (relative to `entryLevel`) . Defaults to `2`                                              |
-| `filter`              | (string) Filter items by node type, defaults to `'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'`                                                 |
-| `showHome`            | (boolean) If set to `true`, the homepage link gets rendererd in the menu. Done with `beforeFirst`. Defaults to `false`                              |
-| `entryLevel`          | (integer) Start the menu at the given depth. If no `startingPoint` is set, it is defaults to `1`, otherwise `0`                                     |
-| `startingPoint`       | (Node) The parent node of the first menu level                                                                                                      |
-| `lastLevel`           | (integer) Restrict the menu depth by node depth (relative to site node)                                                                             |
-| `renderHiddenInIndex` | (boolean) Whether nodes with `hiddenInIndex` should be rendered, defaults to `false`                                                                |
-| `itemCollection`      | (array) Explicitly set the Node items for the menu (alternative to `startingPoints` and levels)                                                     |
-| `beforeFirst`         | (boolean \|\| string) If set, the string gets injected **before the first item**. The variables `item`, `iteration` and `entryLevel` are available. |
-| `afterLast`           | (boolean \|\| string) If set, the string gets injected **after the last item**. The variables `item`, `iteration` and `entryLevel` are available.   |
-| `beforeItem`          | (boolean \|\| string) If set, the string gets injected **before every item**. The variables `item`, `iteration` and `entryLevel` are available.     |
-| `afterItem`           | (boolean \|\| string) If set, the string gets injected **after every item**. The variables `item`, `iteration` and `entryLevel` are available.      |
+| Key          | Description                                                                                                                                                                                                                                                  |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `entryLevel` | (boolean) Render a class with the entry level                                                                                                                                                                                                                |
+| `menuLevel`  | (boolean) Render a class with the menu level                                                                                                                                                                                                                 |
+| `subpages`   | (boolean) Render a class who indicate if the node has subpages (shown in the menu) or not                                                                                                                                                                    |
+| `isFirst`    | (boolean) Render a class who indicate the first item in the list                                                                                                                                                                                             |
+| `isLast`     | (boolean) Render a class who indicate the last item in the list                                                                                                                                                                                              |
+| `type`       | (boolean) Render a class who indicate which type of link is rendered                                                                                                                                                                                         |
+| `state`      | (array) Render classes who indicates which state (`normal`, `active`, `current` or `absent`) the node has. The values of the states can be `false`, a string or an array. If it is set to an array, the entry get multiple classes for this particular state |
+| `dimension`  | (array) Used only in the dimension menu. You can set if the dimension entry gets also a class with the dimension name (`key`) and/or the name with the uriPathSegment (`value`). Very useful if you want to use flags or icons in your dimension menu        |
+
+Look at [Settings.yaml](Configuration/Settings.yaml) for the default values for the different menu types
+
+### The variable `item`
 
 In the variable `item` are following properties available:
 
@@ -75,37 +82,62 @@ In the variable `item` are following properties available:
 | `item.state`        | (string) Menu state of the item: `'normal'`, `'current'` (the current node) or `'active'` (ancestor of current node) |
 | `item.label`        | (string) Full label of the node                                                                                      |
 | `item.menuLevel`    | (integer) Menu level the item is rendered on                                                                         |
-| `item.subItems`     | (array) The sub nodes from the current `item.node`. Useful to check if a page has subpages                           |
+| `item.subItems`     | (array) The sub-nodes from the current `item.node`. Useful to check if a page has subpages                           |
+
+## `Carbon.Navigation:Mixin`
+
+Basic Mixin for Menus. Extends [Neos.Neos:Menu](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-menu).
+
+Defined in [Mixin.fusion](Resources/Private/Fusion/Menu/Mixin.fusion)
+
+## `Carbon.Navigation:Menu`
+
+Render a menu with items for nodes. Baes on `Carbon.Navigation:Mixin`. Besides the [default properties](#propertiesforallmenuprototypes) following properties are available:
+
+| Property              | Description                                                                                                            |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `maximumLevels`       | (integer) Restrict the maximum depth of items in the menu (relative to `entryLevel`) . Defaults to `2`                 |
+| `filter`              | (string) Filter items by node type, defaults to `'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'`                    |
+| `showHome`            | (boolean) If set to `true`, the homepage link gets rendererd in the menu. Done with `beforeFirst`. Defaults to `false` |
+| `entryLevel`          | (integer) Start the menu at the given depth. If no `startingPoint` is set, it is defaults to `1`, otherwise `0`        |
+| `startingPoint`       | (Node) The parent node of the first menu level                                                                         |
+| `lastLevel`           | (integer) Restrict the menu depth by node depth (relative to site node)                                                |
+| `renderHiddenInIndex` | (boolean) Whether nodes with `hiddenInIndex` should be rendered, defaults to `false`                                   |
+| `itemCollection`      | (array) Explicitly set the Node items for the menu (alternative to `startingPoints` and levels)                        |
 
 Defined in [Menu.fusion](Resources/Private/Fusion/Menu/Menu.fusion)
 
-### `Carbon.Navigation:References`
+## `Carbon.Navigation:References`
 
-Provides a list of links, based on nodes set in the inspector. Based on `Carbon.Navigation:Menu`. `itemCollection` is set to the closest instance of `Carbon.Navigation:References` who has the property `navigationreferences` set. `maximumLevels` defaults to `1` and `renderHiddenInIndex` defaults to `true`.
+Provides a list of links, based on nodes which are set in the inspector. Based on `Carbon.Navigation:Mixin`. `itemCollection` is set to the closest instance of `Carbon.Navigation:References` who has the property `navigationreferences` set. `maximumLevels` defaults to `1` and `renderHiddenInIndex` defaults to `true`.
 
 Defined in [References.fusion](Resources/Private/Fusion/Menu/References.fusion)
 
-### `Carbon.Navigation:Breadcrumb`
+## `Carbon.Navigation:Breadcrumb`
 
-Provides a breadcrumb navigation based on menu items. Based on `Carbon.Navigation:Menu`. `maximumLevels` is set to `1` and `listTag` defaults to `'ol'`.
+Provides a breadcrumb navigation based on the current node. Based on `Carbon.Navigation:Mixin`. `maximumLevels` is set to `1` and `listTag` defaults to `'ol'`.
 
-| Property   | Description                                                                        |
-| ---------- | ---------------------------------------------------------------------------------- |
-| `sortDesc` | (boolean) If set to `true` the sort order is set to descending. Defaults to `true` |
+| Property         | Description                                                                                                                                                       |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sortDesc`       | (boolean) If set to `true` the sort order is set to descending. Defaults to `true`                                                                                |
+| `renderSiblings` | (boolean) If set to `true` the siblings of a node gets rendered as a submenu. Defaults to `false`                                                                 |
+| `renderPrevNext` | (boolean) If set to `true` every entry get a submenu rendered with all previous and next nodes, including the active and current node itself. Defaults to `false` |
 
 Defined in [Breadcrumb.fusion](Resources/Private/Fusion/Menu/Breadcrumb.fusion)
 
-### `Carbon.Navigation:Dimensions`
+## `Carbon.Navigation:Dimensions`
 
-Create links to other node variants (e.g., variants of the current node in other dimensions) by using this Fusion object. Extends [Neos.Neos:DimensionsMenu](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-dimensionsmenu).
+Create links to other node variants (e.g., variants of the current node in other dimensions) by using this Fusion object. Extends [Neos.Neos:DimensionsMenu](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-dimensionsmenu). If no specific `dimension` is set, the `Neos.Neos:DimensionsMenu` prototype output the label from the node, and not the dimensions label. This prototype also fixes this wrong behavior.
 
-| Property              | Description                                                                                         |
-| --------------------- | --------------------------------------------------------------------------------------------------- |
-| `renderCurrent`       | (boolean) If set to `false` the current dimension didn't get rendered. Defaults to `true`           |
-| `dimension`           | (optional, string) name of the dimension which this menu should be based on. Example: `'language'`. |
-| `presets`             | (optional, array): If set, the presets rendered will be taken from this list of preset identifiers  |
-| `includeAllPresets`   | (boolean) If set to `true`, include all presets, not only allowed combinations. Defaults to `false` |
-| `renderHiddenInIndex` | (boolean) Whether nodes with hiddenInIndex should be rendered, defaults to `true`                   |
+| Property                    | Description                                                                                         |
+| --------------------------- | --------------------------------------------------------------------------------------------------- |
+| `renderCurrent`             | (boolean) If set to `false` the current dimension didn't get rendered. Defaults to `true`           |
+| `dimension`                 | (optional, string) name of the dimension which this menu should be based on. Example: `'language'`. |
+| `presets`                   | (optional, array): If set, the presets rendered will be taken from this list of preset identifiers  |
+| `includeAllPresets`         | (boolean) If set to `true`, include all presets, not only allowed combinations. Defaults to `false` |
+| `renderHiddenInIndex`       | (boolean) Whether nodes with hiddenInIndex should be rendered, defaults to `true`                   |
+| `useUriSegmentAsLabel`      | (boolean) If set to true, the uri segment will get used as label, defaults to `false`               |
+| `mulitipleDimensionDivider` | (string) String to divide multiple dimensions (if no specific `dimension` is set), defaults to `-`  |
 
 Defined in [Dimensions.fusion](Resources/Private/Fusion/Menu/Dimensions.fusion)
 
