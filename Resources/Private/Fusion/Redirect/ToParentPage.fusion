@@ -1,4 +1,4 @@
-prototype(Carbon.Navigation:RedirectToFirstChildPage) < prototype(Neos.Fusion:Component) {
+prototype(Carbon.Navigation:RedirectToParentPage) < prototype(Neos.Fusion:Component) {
     parentNode = ${q(documentNode).parent().get(0)}
     statusCode = ${Configuration.setting('Carbon.Navigation.Redirect.statusCode')}
 
