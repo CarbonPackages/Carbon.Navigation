@@ -1,0 +1,4 @@
+prototype(Carbon.Navigation:Label) < prototype(Neos.Fusion:Value) {
+//    value = ${q(item.node).property('title')}
+    value = ${item.label}
+}

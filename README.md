@@ -141,6 +141,18 @@ Create links to other node variants (e.g., variants of the current node in other
 
 Defined in [Dimensions.fusion](Resources/Private/Fusion/Menu/Dimensions.fusion)
 
+## `Carbon.Navigation:Label`
+
+A small helper to get the label for an menu entry. Per default, it reads the `item.label` property. If you want to output just the title you can edit the prototye e. g. like this;
+
+```elm
+prototype(Carbon.Navigation:Label) {
+    value = ${q(item.node).property('title')}
+}
+``
+
+Defined in [Label.fusion](Resources/Private/Fusion/Menu/Label.fusion)
+
 ## License
 
 Licensed under MIT, see [LICENSE](LICENSE)
