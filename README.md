@@ -149,7 +149,7 @@ A small helper to get the label for an menu entry. Per default, it reads the `it
 prototype(Carbon.Navigation:Label) {
     value = ${q(item.node).property('title')}
 }
-``
+```
 
 Defined in [Label.fusion](Resources/Private/Fusion/Menu/Label.fusion)
 
