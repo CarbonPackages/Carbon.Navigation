@@ -4,4 +4,4 @@
     _hiddenInIndex:
       ui:
         inspector:
-          group: hidden
+          hidden: true

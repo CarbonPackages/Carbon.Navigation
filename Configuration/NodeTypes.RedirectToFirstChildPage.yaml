@@ -6,4 +6,4 @@
   superTypes:
     'Carbon.Navigation:NotInMenu': true
     'Carbon.Navigation:HideSeo': true
-    'Jonnitto.Sitemap:RemoveFromSitemap': true
+    'Neos.Seo:NoindexMixin': true
