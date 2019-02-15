@@ -6,6 +6,9 @@ prototype(Carbon.Navigation:Link) < prototype(Carbon.Link:Link) {
     node = ${item.node}
     backendLink = true
     renderDefaultTagIfNoLink = true
+    attributes.href = Neos.Neos:NodeUri {
+        node = ${item.node}
+    }
     content = Carbon.Navigation:Label
     content.@process.wrap = Neos.Fusion:Tag {
         @if.wrap = ${wrapText}

@@ -31,9 +31,6 @@ prototype(Carbon.Navigation:Dimensions) < prototype(Neos.Neos:DimensionsMenu) {
 
     renderItem = ${renderCurrent ? true : item.state != 'current'}
     link = Carbon.Navigation:Link {
-        attributes.href = Neos.Neos:NodeUri {
-            node = ${item.node}
-        }
         content = Neos.Fusion:Case {
             hasSingleDimension {
                 condition = ${dimension}
