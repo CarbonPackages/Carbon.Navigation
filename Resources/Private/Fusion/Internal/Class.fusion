@@ -1,45 +1,40 @@
-prototype(Carbon.Navigation:Class) < prototype(Neos.Fusion:RawArray) {
+prototype(Carbon.Navigation:Class) < prototype(Neos.Fusion:Component) {
     // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
     // Properties can change without releasing a new major version.
     // You have to be aware of this if you use this prototype directly
 
-    name = null
-    pre = ${useBEM ? namespace + '__' + this.name + '-' : ''}
-    state = ${item.state}
-    entryLevel = ${entryLevel}
-    menuLevel = ${item.menuLevel}
-    isFirst = ${iteration && iteration.isFirst}
-    isLast = ${iteration && iteration.isLast}
-    hasSubpages = ${item ? item.subItems ? true : false : null}
-    render = ${renderClass[this.name]}
+    state = ${this.item.state}
+    menuLevel = ${this.item.menuLevel}
+    isFirst = ${this.overwriteIsFirst != null ? this.overwriteIsFirst : iterator && iterator.isFirst}
+    isLast = ${this.overwriteIsLast != null ? this.overwriteIsLast : iterator && iterator.isLast}
+    hasSubpages = ${this.item ? this.item.subItems ? true : false : null}
+    render = ${this.renderClass[this.name]}
+    @if.render = ${this.renderClass}
+    renderDimension = ${this.render.dimension}
+    renderState = ${this.render.state[this.state]}
 
-    @if.render = ${renderClass}
-    @ignoreProperties = ${['name', 'pre', 'state', 'entryLevel', 'menuLevel', 'isFirst', 'isLast', 'hasSubpages', 'render']}
-    @context {
-        pre = ${this.pre}
-        name = ${this.name}
-        renderDimension = ${this.render.dimension}
-        renderState = ${this.render.state[this.state]}
-    }
-
-    namespaceClass = ${namespace + (useBEM ? '__' : '-') + this.name}
-    stateClass = Neos.Fusion:RawCollection {
-        collection = ${Type.isArray(renderState) ? renderState : Type.isString(renderState) ? [renderState] : []}
-        itemRenderer = ${pre + '-' + item}
-        @process.join = ${Array.join(value, ' ')}
-    }
-    entryLevelClass = ${this.render.entryLevel && this.entryLevel ? this.pre + '-entry' + this.entryLevel : false}
-    menuLevelClass = ${this.render.menuLevel && this.menuLevel ? this.pre + '-level' + this.menuLevel : false}
-    subpagesClass = ${this.render.subpages && this.hasSubpages != null ? this.pre + (this.hasSubpages ? '-hassub' : '-nosub') : false}
-    isFirstClass = ${this.render.isFirst && this.isFirst ?  this.pre + '-first' : false }
-    isLastClass = ${this.render.isLast && this.isLast ?  this.pre + '-last' : false }
-    dimension = Neos.Fusion:Collection {
-        @if.renderDimensions = ${renderDimension}
-        collection = ${item.targetDimensions}
-        itemRenderer = Neos.Fusion:RawArray {
-            key = ${renderDimension.key ? pre + '-' + itemKey : false}
-            value = ${renderDimension.value ? pre + '-' + itemKey + '-' + item.value : false}
-            @process.join = ${Array.join(value, ' ')}
+    renderer = Carbon.Eel:BEM {
+        block = ${props.namespace}
+        element = ${props.name}
+        modifier = Neos.Fusion:DataStructure {
+            state = Neos.Fusion:Map {
+                items = ${Type.isArray(props.renderState) ? props.renderState : Type.isString(props.renderState) ? [props.renderState] : []}
+                itemRenderer = ${item}
+            }
+            entryLevel = ${props.render.entryLevel && Type.isInteger(props.entryLevel) ? 'entry' + props.entryLevel : false}
+            menuLevel = ${props.render.menuLevel && Type.isInteger(props.menuLevel) ? 'level' + props.menuLevel : false}
+            subpages = ${props.render.subpages && props.hasSubpages != null ? (props.hasSubpages ? 'hassub' : 'nosub') : false}
+            isFirst = ${props.render.isFirst && props.isFirst ? 'first' : false }
+            isLast = ${props.render.isLast && props.isLast ? 'last' : false }
+            dimension = Neos.Fusion:Map {
+                @if.renderDimensions = ${props.renderDimension}
+                items = ${props.item.targetDimensions}
+                itemRenderer = Neos.Fusion:DataStructure {
+                    @if.render = ${props.dimension ? itemKey == props.dimension : true}
+                    key = ${props.renderDimension.key ? itemKey : false}
+                    value = ${props.renderDimension.value ? (itemKey + '-' + item.value) : false}
+                }
+            }
         }
     }
 }

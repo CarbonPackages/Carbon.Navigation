@@ -1,5 +1,4 @@
-prototype(Carbon.Navigation:Dimensions) < prototype(Neos.Neos:DimensionsMenu) {
-    useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
+prototype(Carbon.Navigation:Dimensions) < prototype(Neos.Fusion:Component) {
     namespace = ${Configuration.setting('Carbon.Navigation.Dimensions.namespace')}
     wrapText = ${Configuration.setting('Carbon.Navigation.Dimensions.wrapText')}
     renderCurrent = ${Configuration.setting('Carbon.Navigation.Dimensions.renderCurrent')}
@@ -9,61 +8,43 @@ prototype(Carbon.Navigation:Dimensions) < prototype(Neos.Neos:DimensionsMenu) {
     useUriSegmentAsLabel =  ${Configuration.setting('Carbon.Navigation.Dimensions.useUriSegmentAsLabel')}
     mulitipleDimensionDivider = ${Configuration.setting('Carbon.Navigation.Dimensions.mulitipleDimensionDivider')}
 
-    beforeFirst = false
-    afterLast = false
-    beforeItem = false
-    afterItem = false
-    prependItem = false
-    appendItem = false
+    renderHiddenInIndex = true
+    dimension = null
+    presets = null
+    includeAllPresets = false
 
-    # name of the dimension to use (optional)
-    # dimension = 'language'
-
-    @context {
-        namespace = ${this.namespace}
-        useBEM = ${this.useBEM}
-        wrapText = ${this.wrapText}
-        renderClass = ${this.renderClass}
-        useUriSegmentAsLabel = ${this.useUriSegmentAsLabel}
-        dimension = ${this.dimension}
-        mulitipleDimensionDivider = ${this.mulitipleDimensionDivider}
+    prototype(Carbon.Navigation:Tag) {
+        @if.renderItem = ${this.renderCurrent || this.item.state != 'current'}
     }
 
-    renderItem = ${renderCurrent ? true : item.state != 'current'}
-    link = Carbon.Navigation:Link {
-        content = Neos.Fusion:Case {
+    prototype(Carbon.Navigation:Label) {
+        renderer = Neos.Fusion:Case {
             hasSingleDimension {
-                condition = ${dimension}
-                renderer = ${useUriSegmentAsLabel ? item.targetDimensions[dimension].value : item.label}
+                condition = ${props.dimension}
+                renderer = ${props.useUriSegmentAsLabel ? props.item.targetDimensions[props.dimension].value : props.item.label}
             }
             multipleDimension {
                 condition = true
-                renderer = Neos.Fusion:RawCollection {
-                    collection = ${item.targetDimensions}
-                    itemName = 'dimension'
-                    itemRenderer = ${useUriSegmentAsLabel ? dimension.value : dimension.label}
-                    @process.join = ${Array.join(value, mulitipleDimensionDivider)}
+                renderer = Neos.Fusion:Loop {
+                    items = ${props.item.targetDimensions}
+                    itemRenderer = ${props.useUriSegmentAsLabel ? item.value : item.label}
+                    @glue = ${props.mulitipleDimensionDivider}
                 }
             }
         }
-
-        additionalClass = Carbon.Navigation:Class {
-            name = 'link'
-        }
     }
 
-    list.attributes = Neos.Fusion:Attributes {
-        class = Carbon.Navigation:Class {
-            name = 'list'
-        }
-    }
+    renderer = Neos.Fusion:Component {
+        @apply.props = ${props}
+        @if.render = ${Type.isArray(this.menuItems) && Array.length(this.menuItems)}
+        @process.shy = Carbon.Navigation:Hyphen
 
-    element.attributes = Neos.Fusion:Attributes {
-        class = Carbon.Navigation:Class {
-            name = 'element'
+        menuItems = Neos.Neos:DimensionsMenuItems {
+            @apply.props = ${props}
         }
-    }
 
-    templatePath = ${Configuration.setting('Carbon.Navigation.templatePath')}
-    sectionName = 'Dimension'
+        renderer = afx`
+            <Carbon.Navigation:List {...props} items={props.menuItems} />
+        `
+    }
 }

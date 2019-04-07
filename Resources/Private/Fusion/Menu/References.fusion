@@ -8,7 +8,4 @@ prototype(Carbon.Navigation:References) < prototype(Carbon.Navigation:Mixin) {
     maximumLevels = ${Configuration.setting('Carbon.Navigation.References.maximumLevels')}
     renderHiddenInIndex = ${Configuration.setting('Carbon.Navigation.References.renderHiddenInIndex')}
     renderClass = ${Configuration.setting('Carbon.Navigation.References.renderClass')}
-
-
-    @if.render = ${this.itemCollection && Type.isArray(this.itemCollection) && Array.length(this.itemCollection)}
 }

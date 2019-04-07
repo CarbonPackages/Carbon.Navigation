@@ -1,4 +1,6 @@
-prototype(Carbon.Navigation:Label) < prototype(Neos.Fusion:Value) {
-//    value = ${q(item.node).property('title')}
-    value = ${item.label}
+prototype(Carbon.Navigation:Label) < prototype(Neos.Fusion:Component) {
+    item = null
+    label = null
+
+    renderer = ${props.label || props.item.label}
 }

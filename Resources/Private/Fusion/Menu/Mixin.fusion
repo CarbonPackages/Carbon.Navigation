@@ -1,46 +1,16 @@
-prototype(Carbon.Navigation:Mixin) < prototype(Neos.Neos:Menu) {
-    useBEM = ${Configuration.setting('Carbon.Navigation.useBEM')}
+prototype(Carbon.Navigation:Mixin) < prototype(Neos.Fusion:Component) {
 
-    beforeFirst = false
-    afterLast = false
-    beforeItem = false
-    afterItem = false
-    prependItem = false
-    appendItem = false
+    renderer = Neos.Fusion:Component {
+        @apply.props = ${props}
+        @if.render = ${Type.isArray(this.menuItems) && Array.length(this.menuItems)}
+        @process.shy = Carbon.Navigation:Hyphen
 
-    @context {
-        namespace = ${this.namespace}
-        useBEM = ${this.useBEM}
-        wrapText = ${this.wrapText}
-        showHome = ${this.showHome}
-        listTag = ${this.listTag}
-        elementTag = ${this.elementTag}
-        renderClass = ${this.renderClass}
-    }
-
-    link = Carbon.Navigation:Link {
-        additionalClass = Carbon.Navigation:Class {
-            name = 'link'
+        menuItems = Neos.Neos:MenuItems {
+            @apply.props = ${props}
         }
-    }
 
-    list.attributes = Neos.Fusion:Attributes {
-        class = Carbon.Navigation:Class {
-            name = 'list'
-        }
+        renderer = afx`
+            <Carbon.Navigation:List {...props} items={props.menuItems} />
+        `
     }
-
-    element.attributes = Neos.Fusion:Attributes {
-        class = Carbon.Navigation:Class {
-            name = 'element'
-        }
-    }
-
-    # if Carbon.Hypen is available, always replace shy
-     @process.shy = Neos.Fusion:Value {
-        @if.carbonHypenIsInstalled = ${Configuration.setting('Neos.Neos.fusion.autoInclude')['Carbon.Hyphen']}
-        value = Carbon.Hyphen:Shy.AlwaysReplace
-    }
-    templatePath = ${Configuration.setting('Carbon.Navigation.templatePath')}
-    sectionName = 'Menu'
 }

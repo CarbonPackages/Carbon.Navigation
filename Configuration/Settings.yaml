@@ -55,11 +55,8 @@ Neos:
 #     state:
 #       absent: string || array || false
 
-
 Carbon:
   Navigation:
-    templatePath: 'resource://Carbon.Navigation/Private/Templates/Menu.html'
-    useBEM: true
     Menu:
       namespace: nav
       wrapText: false
@@ -114,15 +111,12 @@ Carbon:
       listTag: ol
       elementTag: li
       renderHiddenInIndex: false
-      sortDesc: true
       showHome: true
-      renderSiblings: false
-      renderPrevNext: false
       filter: '[instanceof Neos.Neos:Document][!instanceof Carbon.Navigation:NotInMenu]'
       renderClass:
         link:
           state:
-            active: active
+            active: false
             current: current
     Dimensions:
       namespace: dimensions

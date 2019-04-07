@@ -1,0 +1,5 @@
+prototype(Carbon.Navigation:Hyphen) < prototype(Neos.Fusion:Value) {
+    # if Carbon.Hyphen is available, always replace shy
+    @if.carbonHyphenIsInstalled = ${Configuration.setting('Neos.Neos.fusion.autoInclude')['Carbon.Hyphen']}
+    value = Carbon.Hyphen:Shy.AlwaysReplace
+}

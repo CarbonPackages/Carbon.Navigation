@@ -1,0 +1,17 @@
+prototype(Carbon.Navigation:Loop) < prototype(Neos.Fusion:Component) {
+    // THIS PROTOTYPE IS FOR INTERNAL USE ONLY.
+    // Properties can change without releasing a new major version.
+    // You have to be aware of this if you use this prototype directly
+
+    items = null
+
+    @if.render = ${Type.isArray(this.items)}
+    renderer = afx`
+        <Neos.Fusion:Loop items={props.items}>
+            <Carbon.Navigation:Tag {...props} tagName={props.elementTag} item={item} name='element'>
+                <Carbon.Navigation:Link {...props} item={item} name='link' />
+                <Carbon.Navigation:List {...props} items={item.subItems} />
+            </Carbon.Navigation:Tag>
+        </Neos.Fusion:Loop>
+    `
+}

@@ -39,20 +39,13 @@ You can edit the default behavior of each fusion prototype in your [Settings.yam
 
 ## Properties for all menu prototypes
 
-| Property      | Description                                                                                                                                                        |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `useBEM`      | (boolean) If set to `true`, the CSS classes get written in [BEM-Style](http://getbem.com). Defaults to `true`                                                      |
-| `namespace`   | (string) You can easily change the namespace of the navigation. Useful if you have multiple navigations on your page. Defaults to the name of the prototype        |
-| `wrapText`    | (boolean \|\| string) If `true`, the text inside the `a` gets wrapped with a `span`. If it is a string, this string will become the tag name. Defaults to `false`  |
-| `listTag`     | The tag of the full navigation gets wrapped. If it set to `false`, the navigation gets no surrounding tag. Defaults to `'ul'`                                      |
-| `elementTag`  | The tag a navigation entry gets wrapped. If it set to `false`, the entry gets no surrounding tag. Defaults to `'li'`                                               |
-| `beforeFirst` | (boolean \|\| string) If set, the string gets injected **before the first item**. The variables `item`, `iteration` and `entryLevel` are available.                |
-| `afterLast`   | (boolean \|\| string) If set, the string gets injected **after the last item**. The variables `item`, `iteration` and `entryLevel` are available.                  |
-| `beforeItem`  | (boolean \|\| string) If set, the string gets injected **before every item**. The variables `item`, `iteration` and `entryLevel` are available.                    |
-| `afterItem`   | (boolean \|\| string) If set, the string gets injected **after every item**. The variables `item`, `iteration` and `entryLevel` are available.                     |
-| `prependItem` | (boolean \|\| string) If set, the string gets injected **before every item inside the element**. The variables `item`, `iteration` and `entryLevel` are available. |
-| `appendItem`  | (boolean \|\| string) If set, the string gets injected **after every item inside the element**. The variables `item`, `iteration` and `entryLevel` are available.  |
-| `renderClass` | (array) The array which defines the css classes for the menu. Read more about this [here](#therenderclass)                                                         |
+| Property      | Description                                                                                                                                                       |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `namespace`   | (string) You can easily change the namespace of the navigation. Useful if you have multiple navigations on your page. Defaults to the name of the prototype       |
+| `wrapText`    | (boolean \|\| string) If `true`, the text inside the `a` gets wrapped with a `span`. If it is a string, this string will become the tag name. Defaults to `false` |
+| `listTag`     | The tag of the full navigation gets wrapped. If it set to `false`, the navigation gets no surrounding tag. Defaults to `'ul'`                                     |
+| `elementTag`  | The tag a navigation entry gets wrapped. If it set to `false`, the entry gets no surrounding tag. Defaults to `'li'`                                              |
+| `renderClass` | (array) The array which defines the css classes for the menu. Read more about this [here](#therenderclass)                                                        |
 
 ### The renderClass
 
@@ -71,39 +64,27 @@ The `renderClass` entry in the setting for each menu type defines the CSS classe
 
 Look at [Settings.yaml](Configuration/Settings.yaml) for the default values for the different menu types
 
-### The variable `item`
-
-In the variable `item` are following properties available:
-
-| Property            | Description                                                                                                          |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `item.node`         | (Node) A node instance (with resolved shortcuts) that should be used to link to the item                             |
-| `item.originalNode` | (Node) Original node for the item                                                                                    |
-| `item.state`        | (string) Menu state of the item: `'normal'`, `'current'` (the current node) or `'active'` (ancestor of current node) |
-| `item.label`        | (string) Full label of the node                                                                                      |
-| `item.menuLevel`    | (integer) Menu level the item is rendered on                                                                         |
-| `item.subItems`     | (array) The sub-nodes from the current `item.node`. Useful to check if a page has subpages                           |
-
 ## `Carbon.Navigation:Mixin`
 
-Basic Mixin for Menus. Extends [Neos.Neos:Menu](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-menu).
+Basic Mixin for Menus. Based on [Neos.Neos:MenuItems](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-menuitems).
 
 Defined in [Mixin.fusion](Resources/Private/Fusion/Menu/Mixin.fusion)
 
 ## `Carbon.Navigation:Menu`
 
-Render a menu with items for nodes. Baes on `Carbon.Navigation:Mixin`. Besides the [default properties](#propertiesforallmenuprototypes) following properties are available:
+Render a menu with items for nodes. Based on `Neos.Neos:MenuItems`. Besides the [default properties](#propertiesforallmenuprototypes) following properties are available:
 
-| Property              | Description                                                                                                            |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `maximumLevels`       | (integer) Restrict the maximum depth of items in the menu (relative to `entryLevel`) . Defaults to `2`                 |
-| `filter`              | (string) Filter items by node type, defaults to `'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'`                    |
-| `showHome`            | (boolean) If set to `true`, the homepage link gets rendererd in the menu. Done with `beforeFirst`. Defaults to `false` |
-| `entryLevel`          | (integer) Start the menu at the given depth. If no `startingPoint` is set, it is defaults to `1`, otherwise `0`        |
-| `startingPoint`       | (Node) The parent node of the first menu level                                                                         |
-| `lastLevel`           | (integer) Restrict the menu depth by node depth (relative to site node)                                                |
-| `renderHiddenInIndex` | (boolean) Whether nodes with `hiddenInIndex` should be rendered, defaults to `false`                                   |
-| `itemCollection`      | (array) Explicitly set the Node items for the menu (alternative to `startingPoints` and levels)                        |
+| Property              | Description                                                                                                     |
+| --------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `maximumLevels`       | (integer) Restrict the maximum depth of items in the menu (relative to `entryLevel`) . Defaults to `2`          |
+| `filter`              | (string) Filter items by node type, defaults to `'Neos.Neos:Document,!Carbon.Navigation:NotInMenu'`             |
+| `showHome`            | (boolean) If set to `true`, the homepage link gets rendererd in the menu. Defaults to `false`                   |
+| `homeLabel`           | (string) Replace the label from `site`. If set to `false`, the label from the site itself get used.             |
+| `entryLevel`          | (integer) Start the menu at the given depth. If no `startingPoint` is set, it is defaults to `1`, otherwise `0` |
+| `startingPoint`       | (Node) The parent node of the first menu level                                                                  |
+| `lastLevel`           | (integer) Restrict the menu depth by node depth (relative to site node)                                         |
+| `renderHiddenInIndex` | (boolean) Whether nodes with `hiddenInIndex` should be rendered, defaults to `false`                            |
+| `itemCollection`      | (array) Explicitly set the Node items for the menu (alternative to `startingPoints` and levels)                 |
 
 Defined in [Menu.fusion](Resources/Private/Fusion/Menu/Menu.fusion)
 
@@ -115,13 +96,12 @@ Defined in [References.fusion](Resources/Private/Fusion/Menu/References.fusion)
 
 ## `Carbon.Navigation:Breadcrumb`
 
-Provides a breadcrumb navigation based on the current node. Based on `Carbon.Navigation:Mixin`. `maximumLevels` is set to `1` and `listTag` defaults to `'ol'`.
+Provides a breadcrumb navigation based on the current node. Based on `Carbon.Navigation:Mixin`. `listTag` defaults to `'ol'`.
 
-| Property         | Description                                                                                                                                                       |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sortDesc`       | (boolean) If set to `true` the sort order is set to descending. Defaults to `true`                                                                                |
-| `renderSiblings` | (boolean) If set to `true` the siblings of a node gets rendered as a submenu. Defaults to `false`                                                                 |
-| `renderPrevNext` | (boolean) If set to `true` every entry get a submenu rendered with all previous and next nodes, including the active and current node itself. Defaults to `false` |
+| Property    | Description                                                                                         |
+| ----------- | --------------------------------------------------------------------------------------------------- |
+| `showHome`  | (boolean) If set to `true`, the homepage link gets rendererd in the menu. Defaults to `false`       |
+| `homeLabel` | (string) Replace the label from `site`. If set to `false`, the label from the site itself get used. |
 
 Defined in [Breadcrumb.fusion](Resources/Private/Fusion/Menu/Breadcrumb.fusion)
 
@@ -147,7 +127,7 @@ A small helper to get the label for an menu entry. Per default, it reads the `it
 
 ```elm
 prototype(Carbon.Navigation:Label) {
-    value = ${q(item.node).property('title')}
+    renderer = ${q(props.item.node).property('title')}
 }
 ```
 

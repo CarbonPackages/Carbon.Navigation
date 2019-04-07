@@ -1,48 +1,45 @@
-prototype(Carbon.Navigation:Menu) < prototype(Carbon.Navigation:Mixin) {
-    // The properties of an item is available under following variables
-    // - item.menuLevel
-    // - item.subItems
-    // - item.state
-
+prototype(Carbon.Navigation:Menu) < prototype(Neos.Fusion:Component) {
     namespace = ${Configuration.setting('Carbon.Navigation.Menu.namespace')}
     wrapText = ${Configuration.setting('Carbon.Navigation.Menu.wrapText')}
     listTag = ${Configuration.setting('Carbon.Navigation.Menu.listTag')}
     elementTag = ${Configuration.setting('Carbon.Navigation.Menu.elementTag')}
-
-    maximumLevels = ${Configuration.setting('Carbon.Navigation.Menu.maximumLevels')}
-    filter = ${Configuration.setting('Carbon.Navigation.Menu.filter')}
     showHome = ${Configuration.setting('Carbon.Navigation.Menu.showHome')}
-    renderHiddenInIndex = ${Configuration.setting('Carbon.Navigation.Menu.renderHiddenInIndex')}
-    entryLevel = ${this.startingPoint ? 0 : 1}
-
     renderClass = ${Configuration.setting('Carbon.Navigation.Menu.renderClass')}
+    homeLabel = ${Translation.translate('home', null, [], null, 'Carbon.Navigation')}
 
-    prototype(Carbon.Navigation:Class) {
-        isFirst = ${showHome ? false : iteration && iteration.isFirst}
-    }
+    node = ${node}
+    entryLevel = ${this.startingPoint ? 0 : 1}
+    maximumLevels = ${Configuration.setting('Carbon.Navigation.Menu.maximumLevels')}
+    startingPoint = null
+    lastLevel = null
+    filter = ${Configuration.setting('Carbon.Navigation.Menu.filter')}
+    renderHiddenInIndex = ${Configuration.setting('Carbon.Navigation.Menu.renderHiddenInIndex')}
+    itemCollection = null
 
-    beforeFirst = Carbon.Navigation:Link {
-        @if.weAreOnTheMainLevel = ${showHome && item.menuLevel == entryLevel}
-        node = ${site}
-        content = ${q(site).property('title')}
+    renderer = Neos.Fusion:Component {
+        @apply.props = ${props}
+        @if.render = ${Type.isArray(this.menuItems) && Array.length(this.menuItems)}
+        @process.shy = Carbon.Navigation:Hyphen
 
-        prototype(Carbon.Navigation:Class) {
-            isFirst = true
-            isLast = false
+        menuItems = Neos.Neos:MenuItems {
+            @apply.props = ${props}
+        }
+
+        siteItem = Neos.Fusion:DataStructure {
+            node = ${site}
             state = ${documentNode == site ? 'current' : 'normal'}
-            hasSubpages = false
+            label = ${site.label}
+            menuLevel = 1
         }
+        overwriteIsFirst = ${props.showHome ? false : null}
 
-        additionalClass = Carbon.Navigation:Class {
-            name = 'link'
-        }
-        @process.wrap = Neos.Fusion:Tag {
-            @if.hasTag = ${elementTag}
-            tagName = ${elementTag}
-            attributes.class = Carbon.Navigation:Class {
-                name = 'element'
-            }
-            content = ${value}
-        }
+        renderer = afx`
+            <Carbon.Navigation:Tag {...props} tagName={props.listTag} name='list'>
+                <Carbon.Navigation:Tag @if.set={props.showHome} {...props} overwriteIsFirst={true} tagName={props.elementTag} item={props.siteItem} name='element'>
+                    <Carbon.Navigation:Link {...props} overwriteIsFirst={true} item={props.siteItem} label={props.homeLabel} name='link' />
+                </Carbon.Navigation:Tag>
+                <Carbon.Navigation:Loop {...props} items={props.menuItems} />
+            </Carbon.Navigation:Tag>
+        `
     }
 }
