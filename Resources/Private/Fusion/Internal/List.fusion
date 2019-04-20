@@ -7,7 +7,7 @@ prototype(Carbon.Navigation:List) < prototype(Neos.Fusion:Component) {
 
     @if.render = ${Type.isArray(this.items) && Array.length(this.items)}
     renderer = afx`
-        <Carbon.Navigation:Tag {...props} tagName={props.listTag} name='list'>
+        <Carbon.Navigation:Tag {...props} item={Array.first(props.items)} tagName={props.listTag} name='list'>
             <Carbon.Navigation:Loop {...props} />
         </Carbon.Navigation:Tag>
     `
