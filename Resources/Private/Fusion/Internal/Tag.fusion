@@ -7,6 +7,8 @@ prototype(Carbon.Navigation:Tag) < prototype(Neos.Fusion:Component) {
     item = null
     content = null
     name = null
+    open = false
+    close = false
 
     renderer = Neos.Fusion:Component {
         @apply.props = ${props}
@@ -15,8 +17,9 @@ prototype(Carbon.Navigation:Tag) < prototype(Neos.Fusion:Component) {
             @apply.props = ${props}
         }
         renderer = afx`
-            <Neos.Fusion:Tag @if.has={props.tagName} tagName={props.tagName} attributes.class={props.class} content={props.content} />
+            <Neos.Fusion:Tag @if.has={props.tagName} tagName={props.tagName} attributes.class={props.class} content={props.open ? null : props.content} omitClosingTag={props.open} />
             {props.tagName ? '' : props.content}
+            <Neos.Fusion:Value @if.has={props.tagName && props.close} value={'</' + props.tagName + '>'} />
         `
     }
 }
