@@ -18,6 +18,7 @@ prototype(Carbon.Navigation:Breadcrumb) < prototype(Carbon.Navigation:Mixin) {
     renderer.menuItems.@process {
         addCurrent = Neos.Fusion:Value {
             // Show always the current node, event when it is hidden in index
+            @if.isNotHome = ${props.node != site}
             item = Neos.Fusion:DataStructure {
                 node = ${props.node}
                 state = 'current'
