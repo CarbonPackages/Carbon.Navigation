@@ -2,7 +2,7 @@
     "name": "carbon/navigation",
     "type": "neos-carbon",
     "description": "Navigation and frontend redirect helper for Neos CMS",
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "keywords": [
         "flow",
         "neos",

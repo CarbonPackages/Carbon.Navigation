@@ -128,10 +128,6 @@ prototype(Carbon.Navigation:Label) {
 
 Defined in [Label.fusion]
 
-## License
-
-Licensed under MIT, see [LICENSE](LICENSE)
-
 [packagist]: https://packagist.org/packages/carbon/navigation
 [latest stable version]: https://poser.pugx.org/carbon/navigation/v/stable
 [total downloads]: https://poser.pugx.org/carbon/navigation/downloads
