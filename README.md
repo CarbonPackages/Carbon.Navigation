@@ -1,9 +1,4 @@
-[![Latest Stable Version](https://poser.pugx.org/carbon/navigation/v/stable)](https://packagist.org/packages/carbon/navigation)
-[![Total Downloads](https://poser.pugx.org/carbon/navigation/downloads)](https://packagist.org/packages/carbon/navigation)
-[![License](https://poser.pugx.org/carbon/navigation/license)](LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/CarbonPackages/Carbon.Navigation.svg?style=social&label=Fork)](https://github.com/CarbonPackages/Carbon.Navigation/fork)
-[![GitHub stars](https://img.shields.io/github/stars/CarbonPackages/Carbon.Navigation.svg?style=social&label=Stars)](https://github.com/CarbonPackages/Carbon.Navigation/stargazers)
-[![GitHub watchers](https://img.shields.io/github/watchers/CarbonPackages/Carbon.Navigation.svg?style=social&label=Watch)](https://github.com/CarbonPackages/Carbon.Navigation/subscription)
+[![Latest stable version]][packagist] [![Total downloads]][packagist] [![License]][packagist] [![GitHub forks]][fork] [![GitHub stars]][stargazers] [![GitHub watchers]][subscription]
 
 # Carbon.Navigation Package for Neos CMS
 
@@ -11,31 +6,31 @@ This package provides various helps for implementing navigations in your Neos si
 
 # NodeTypes
 
-All Node Types are marked as abstract. So you have to include them as supertypes if you want to use them. You can read more about Node Type definition [here](https://neos.readthedocs.io/en/stable/CreatingASite/NodeTypes/NodeTypeDefinition.html).
+All Node Types are marked as abstract. So you have to include them as supertypes if you want to use them. You can read more about Node Type definition [here][nodetypedefinition].
 
 ## `Carbon.Navigation:NotInMenu`
 
-Hide the property `_hiddenInIndex`. Defined in [NodeTypes.NotInMenu.yaml](Configuration/NodeTypes.NotInMenu.yaml)
+Hide the property `_hiddenInIndex`. Defined in [NodeTypes.NotInMenu.yaml]
 
 ## `Carbon.Navigation:HideSeo`
 
-Turn off all type of SEO properties. Defined in [NodeTypes.HideSeo.yaml](Configuration/NodeTypes.HideSeo.yaml)
+Turn off all type of SEO properties. Defined in [NodeTypes.HideSeo.yaml]
 
 ## `Carbon.Navigation:RedirectToParentPage`
 
-(Only in the live context) Redirect the user to the parent page. Defined in [NodeTypes.RedirectToParentPage.yaml](Configuration/NodeTypes.RedirectToParentPage.yaml) and [ToParentPage.fusion](Resources/Private/Fusion/Redirect/ToParentPage.fusion)
+(Only in the live context) Redirect the user to the parent page. Defined in [NodeTypes.RedirectToParentPage.yaml] and [ToParentPage.fusion]
 
 ## `Carbon.Navigation:RedirectToFirstChildPage`
 
-(Only in the live context) Redirect the user to the first child page, if available. If not, the user gets redirected to the parent page. Defined in [NodeTypes.RedirectToFirstChildPage.yaml](Configuration/NodeTypes.RedirectToFirstChildPage.yaml) and [ToFirstChildPage.fusion](Resources/Private/Fusion/Redirect/ToFirstChildPage.fusion)
+(Only in the live context) Redirect the user to the first child page, if available. If not, the user gets redirected to the parent page. Defined in [NodeTypes.RedirectToFirstChildPage.yaml] and [ToFirstChildPage.fusion]
 
 ## `Carbon.Navigation:References`
 
-Insert a property called `navigationreferences`. It is handy if you want to create a navigation and wants to let the editor to choose which documents should be included. However, you can also pass a custom collection to the Fusion prototype. Defined in [NodeTypes.References.yaml](Configuration/NodeTypes.References.yaml) and [References.fusion](Resources/Private/Fusion/References/References.fusion)
+Insert a property called `navigationreferences`. It is handy if you want to create a navigation and wants to let the editor to choose which documents should be included. However, you can also pass a custom collection to the Fusion prototype. Defined in [NodeTypes.References.yaml] and [References.fusion]
 
 # Menu Fusion prototypes
 
-You can edit the default behavior of each fusion prototype in your [Settings.yaml](Configuration/Settings.yaml). You can set the configuration via Settings.yaml or directly in the corresponding Fusion prototype. The Setting is here to provide an easy way to change some basics without writing Fusion code. If you don't have any entries, no markup at all gets rendered. No more empty `<ul>` anymore!
+You can edit the default behavior of each fusion prototype in your [Settings.yaml]. You can set the configuration via Settings.yaml or directly in the corresponding Fusion prototype. The Setting is here to provide an easy way to change some basics without writing Fusion code. If you don't have any entries, no markup at all gets rendered. No more empty `<ul>` anymore!
 
 ## Properties for all menu prototypes
 
@@ -62,13 +57,13 @@ The `renderClass` entry in the setting for each menu type defines the CSS classe
 | `state`      | (array) Render classes who indicates which state (`normal`, `active`, `current` or `absent`) the node has. The values of the states can be `false`, a string or an array. If it is set to an array, the entry get multiple classes for this particular state |
 | `dimension`  | (array) Used only in the dimension menu. You can set if the dimension entry gets also a class with the dimension name (`key`) and/or the name with the uriPathSegment (`value`). Very useful if you want to use flags or icons in your dimension menu        |
 
-Look at [Settings.yaml](Configuration/Settings.yaml) for the default values for the different menu types
+Look at [Settings.yaml] for the default values for the different menu types
 
 ## `Carbon.Navigation:Mixin`
 
-Basic Mixin for Menus. Based on [Neos.Neos:MenuItems](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-menuitems).
+Basic Mixin for Menus. Based on [Neos.Neos:MenuItems].
 
-Defined in [Mixin.fusion](Resources/Private/Fusion/Menu/Mixin.fusion)
+Defined in [Mixin.fusion]
 
 ## `Carbon.Navigation:Menu`
 
@@ -86,13 +81,13 @@ Render a menu with items for nodes. Based on `Neos.Neos:MenuItems`. Besides the 
 | `renderHiddenInIndex` | (boolean) Whether nodes with `hiddenInIndex` should be rendered, defaults to `false`                            |
 | `itemCollection`      | (array) Explicitly set the Node items for the menu (alternative to `startingPoints` and levels)                 |
 
-Defined in [Menu.fusion](Resources/Private/Fusion/Menu/Menu.fusion)
+Defined in [Menu.fusion]
 
 ## `Carbon.Navigation:References`
 
 Provides a list of links, based on nodes which are set in the inspector. Based on `Carbon.Navigation:Mixin`. `itemCollection` is set to the closest instance of `Carbon.Navigation:References` who has the property `navigationreferences` set. `maximumLevels` defaults to `1` and `renderHiddenInIndex` defaults to `true`.
 
-Defined in [References.fusion](Resources/Private/Fusion/Menu/References.fusion)
+Defined in [References.fusion]
 
 ## `Carbon.Navigation:Breadcrumb`
 
@@ -103,7 +98,7 @@ Provides a breadcrumb navigation based on the current node. Based on `Carbon.Nav
 | `showHome`  | (boolean) If set to `true`, the homepage link gets rendererd in the menu. Defaults to `false`       |
 | `homeLabel` | (string) Replace the label from `site`. If set to `false`, the label from the site itself get used. |
 
-Defined in [Breadcrumb.fusion](Resources/Private/Fusion/Menu/Breadcrumb.fusion)
+Defined in [Breadcrumb.fusion]
 
 ## `Carbon.Navigation:Dimensions`
 
@@ -119,7 +114,7 @@ Create links to other node variants (e.g., variants of the current node in other
 | `useUriSegmentAsLabel`      | (boolean) If set to true, the uri segment will get used as label, defaults to `false`               |
 | `mulitipleDimensionDivider` | (string) String to divide multiple dimensions (if no specific `dimension` is set), defaults to `-`  |
 
-Defined in [Dimensions.fusion](Resources/Private/Fusion/Menu/Dimensions.fusion)
+Defined in [Dimensions.fusion]
 
 ## `Carbon.Navigation:Label`
 
@@ -131,8 +126,36 @@ prototype(Carbon.Navigation:Label) {
 }
 ```
 
-Defined in [Label.fusion](Resources/Private/Fusion/Menu/Label.fusion)
+Defined in [Label.fusion]
 
 ## License
 
 Licensed under MIT, see [LICENSE](LICENSE)
+
+[packagist]: https://packagist.org/packages/carbon/navigation
+[latest stable version]: https://poser.pugx.org/carbon/navigation/v/stable
+[total downloads]: https://poser.pugx.org/carbon/navigation/downloads
+[license]: https://poser.pugx.org/carbon/navigation/license
+[github forks]: https://img.shields.io/github/forks/CarbonPackages/Carbon.Navigation.svg?style=social&label=Fork
+[github stars]: https://img.shields.io/github/stars/CarbonPackages/Carbon.Navigation.svg?style=social&label=Stars
+[github watchers]: https://img.shields.io/github/watchers/CarbonPackages/Carbon.Navigation.svg?style=social&label=Watch
+[fork]: https://github.com/CarbonPackages/Carbon.Navigation/fork
+[stargazers]: https://github.com/CarbonPackages/Carbon.Navigation/stargazers
+[subscription]: https://github.com/CarbonPackages/Carbon.Navigation/subscription
+[nodetypedefinition]: https://neos.readthedocs.io/en/stable/CreatingASite/NodeTypes/NodeTypeDefinition.html
+[nodetypes.notinmenu.yaml]: Configuration/NodeTypes.NotInMenu.yaml
+[nodetypes.hideseo.yaml]: Configuration/NodeTypes.HideSeo.yaml
+[nodetypes.redirecttoparentpage.yaml]: Configuration/NodeTypes.RedirectToParentPage.yaml
+[toparentpage.fusion]: Resources/Private/Fusion/Redirect/ToParentPage.fusion
+[nodetypes.redirecttofirstchildpage.yaml]: Configuration/NodeTypes.RedirectToFirstChildPage.yaml
+[tofirstchildpage.fusion]: Resources/Private/Fusion/Redirect/ToFirstChildPage.fusion
+[nodetypes.references.yaml]: Configuration/NodeTypes.References.yaml
+[references.fusion]: Resources/Private/Fusion/References/References.fusion
+[settings.yaml]: Configuration/Settings.yaml
+[neos.neos:menuitems]: https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-menuitems
+[mixin.fusion]: Resources/Private/Fusion/Menu/Mixin.fusion
+[menu.fusion]: Resources/Private/Fusion/Menu/Menu.fusion
+[breadcrumb.fusion]: Resources/Private/Fusion/Menu/Breadcrumb.fusion
+[neos.neos:dimensionsmenu]: https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-dimensionsmenu
+[dimensions.fusion]: Resources/Private/Fusion/Menu/Dimensions.fusion
+[label.fusion]: Resources/Private/Fusion/Menu/Label.fusion
