@@ -15,8 +15,7 @@
     "require": {
         "neos/neos": "^4.3 || ^5.0",
         "neos/seo": "*",
-        "carbon/eel": "^1.4.1",
-        "carbon/link": "^1.1"
+        "carbon/eel": "^1.7"
     },
     "suggest": {
         "carbon/frontend": "For mobile menu handling"

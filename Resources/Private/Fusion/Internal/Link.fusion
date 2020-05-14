@@ -11,27 +11,13 @@ prototype(Carbon.Navigation:Link) < prototype(Neos.Fusion:Component) {
     overwriteIsFirst = null
     overwriteIsLast = null
 
-    renderer = Carbon.Link:Link {
-        prototype(Carbon.Link:Class) {
-            prepend = ${props.namespace + '__link-'}
-            linkType.@if.renderTypeClass = ${props.renderClass.link.type}
-        }
-        node = ${props.item.node}
-        backendLink = true
-        renderDefaultTagIfNoLink = true
-        additionalClass = Carbon.Navigation:Class {
-            @apply.props = ${props}
-        }
-        attributes.href = Neos.Neos:NodeUri {
-            node = ${props.item.node}
-        }
-        content = Carbon.Navigation:Label {
-            @apply.props = ${props}
-            @process.wrap = Neos.Fusion:Tag {
-                @if.wrap = ${props.wrapText}
-                tagName = ${Type.isString(props.wrapText) ? props.wrapText : 'span'}
-                content = ${value}
-            }
-        }
-    }
+    renderer = afx`
+        <Neos.Neos:NodeLink node={props.item.node}>
+            <Carbon.Navigation:Class @path='attributes.class' {...props} />
+            <Neos.Neos:ConvertUris @path='@process.convertUri' force={true} />
+            <Carbon.Eel:Tag tagName={props.wrapText ? Type.isString(props.wrapText) ? props.wrapText : 'span' : null}>
+                <Carbon.Navigation:Label {...props} />
+            </Carbon.Eel:Tag>
+        </Neos.Neos:NodeLink>
+    `
 }

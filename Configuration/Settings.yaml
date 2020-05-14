@@ -86,7 +86,6 @@ Carbon:
           subpages: false
           isFirst: false
           isLast: false
-          type: false
           state:
             normal: false
             active: active
@@ -104,7 +103,6 @@ Carbon:
         link:
           state:
             current: current
-          type: true
     Breadcrumb:
       namespace: breadcrumb
       wrapText: false

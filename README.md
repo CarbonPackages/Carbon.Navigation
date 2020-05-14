@@ -53,7 +53,6 @@ The `renderClass` entry in the setting for each menu type defines the CSS classe
 | `subpages`   | (boolean) Render a class who indicate if the node has subpages (shown in the menu) or not                                                                                                                                                                    |
 | `isFirst`    | (boolean) Render a class who indicate the first item in the list                                                                                                                                                                                             |
 | `isLast`     | (boolean) Render a class who indicate the last item in the list                                                                                                                                                                                              |
-| `type`       | (boolean) Render a class who indicate which type of link is rendered                                                                                                                                                                                         |
 | `state`      | (array) Render classes who indicates which state (`normal`, `active`, `current` or `absent`) the node has. The values of the states can be `false`, a string or an array. If it is set to an array, the entry get multiple classes for this particular state |
 | `dimension`  | (array) Used only in the dimension menu. You can set if the dimension entry gets also a class with the dimension name (`key`) and/or the name with the uriPathSegment (`value`). Very useful if you want to use flags or icons in your dimension menu        |
 
@@ -102,7 +101,7 @@ Defined in [Breadcrumb.fusion]
 
 ## `Carbon.Navigation:Dimensions`
 
-Create links to other node variants (e.g., variants of the current node in other dimensions) by using this Fusion object. Extends [Neos.Neos:DimensionsMenu](https://neos.readthedocs.io/en/stable/References/NeosFusionReference.html#neos-neos-dimensionsmenu). If no specific `dimension` is set, the `Neos.Neos:DimensionsMenu` prototype output the label from the node, and not the dimensions label. This prototype also fixes this wrong behavior.
+Create links to other node variants (e.g., variants of the current node in other dimensions) by using this Fusion object. Extends [Neos.Neos:DimensionsMenu]. If no specific `dimension` is set, the `Neos.Neos:DimensionsMenu` prototype output the label from the node, and not the dimensions label. This prototype also fixes this wrong behavior.
 
 | Property                    | Description                                                                                         |
 | --------------------------- | --------------------------------------------------------------------------------------------------- |
