@@ -36,9 +36,12 @@ prototype(Carbon.Navigation:Mixin) < prototype(Neos.Neos:Menu) {
         }
     }
 
-    # if Carbon.Hypen is available, always replace shy
+    # if Carbon.Hyphen v1 is available, always replace shy
      @process.shy = Neos.Fusion:Value {
-        @if.carbonHypenIsInstalled = ${Configuration.setting('Neos.Neos.fusion.autoInclude')['Carbon.Hyphen']}
+        @if {
+            carbonHyphenIsInstalled = ${Configuration.setting('Neos.Neos.fusion.autoInclude')['Carbon.Hyphen']}
+            carbonHyphenIsVersion1 = ${Configuration.setting('Carbon.Hyphen.Shy.replaceBackendLabel')}
+        }
         value = Carbon.Hyphen:Shy.AlwaysReplace
     }
     templatePath = ${Configuration.setting('Carbon.Navigation.templatePath')}
