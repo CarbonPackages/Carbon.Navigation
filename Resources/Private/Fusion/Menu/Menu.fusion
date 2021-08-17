@@ -5,7 +5,7 @@ prototype(Carbon.Navigation:Menu) < prototype(Neos.Fusion:Component) {
     elementTag = ${Configuration.setting('Carbon.Navigation.Menu.elementTag')}
     showHome = ${Configuration.setting('Carbon.Navigation.Menu.showHome')}
     renderClass = ${Configuration.setting('Carbon.Navigation.Menu.renderClass')}
-    homeLabel = ${Translation.translate('home', 'Home', [], null, 'Carbon.Navigation')}
+    homeLabel = ${Translation.translate('home', 'Home', [], 'Main', 'Carbon.Navigation')}
 
     entryLevel = ${this.startingPoint ? 0 : 1}
     maximumLevels = ${Configuration.setting('Carbon.Navigation.Menu.maximumLevels')}

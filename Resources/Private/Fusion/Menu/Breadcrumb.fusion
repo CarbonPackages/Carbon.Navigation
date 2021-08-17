@@ -1,7 +1,7 @@
 prototype(Carbon.Navigation:Breadcrumb) < prototype(Carbon.Navigation:Mixin) {
     node = ${documentNode}
     showHome = ${Configuration.setting('Carbon.Navigation.Breadcrumb.showHome')}
-    homeLabel = ${Translation.translate('home', 'Home', [], null, 'Carbon.Navigation')}
+    homeLabel = ${Translation.translate('home', 'Home', [], 'Main', 'Carbon.Navigation')}
     itemCollection = ${q(this.node).parents('[instanceof Neos.Neos:Document]').get()}
     itemCollection.@process {
         removeSite = ${Array.pop(value)}
