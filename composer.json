@@ -15,7 +15,7 @@
     "require": {
         "neos/neos": "^4.3 || ^5.0 || ^7.0",
         "neos/seo": "*",
-        "carbon/eel": "^1.7"
+        "carbon/eel": "^1.7 || ^2.0"
     },
     "suggest": {
         "carbon/frontend": "For mobile menu handling"
@@ -23,8 +23,8 @@
     "authors": [
         {
             "name": "Jon Uhlmann",
-            "email": "me@jonnitto.ch",
-            "homepage": "https://jonnitto.ch",
+            "email": "hello@uhlmann.pro",
+            "homepage": "https://www.uhlmann.pro",
             "role": "Developer"
         }
     ],
@@ -43,7 +43,6 @@
         }
     },
     "extra": {
-        "marketplace-account": "me@jonnitto.ch",
         "installer-name": "Carbon.Navigation",
         "neos": {
             "package-key": "Carbon.Navigation"
