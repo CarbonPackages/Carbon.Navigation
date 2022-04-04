@@ -13,7 +13,7 @@
         "carbon"
     ],
     "require": {
-        "neos/neos": "^4.3 || ^5.0 || ^7.0",
+        "neos/neos": "^5.3 || ^7.0 || ^8.0",
         "neos/seo": "*",
         "carbon/eel": "^1.7 || ^2.0"
     },
